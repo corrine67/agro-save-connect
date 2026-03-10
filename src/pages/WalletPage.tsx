@@ -98,6 +98,11 @@ const WalletPage = () => {
         {showTopUp && (
           <div className="bg-card rounded-xl p-4 border border-border mb-4 animate-slide-up">
             <h3 className="font-medium text-foreground text-sm mb-3">Top Up Wallet</h3>
+            <select value={topUpBank} onChange={(e) => setTopUpBank(e.target.value)}
+              className="w-full px-4 py-2.5 rounded-lg bg-background border border-border text-sm mb-3 focus:outline-none focus:ring-2 focus:ring-primary/30 appearance-none">
+              <option value="">Select Bank / Payment Provider</option>
+              {bankOptions.map((b) => <option key={b} value={b}>{b}</option>)}
+            </select>
             <div className="grid grid-cols-3 gap-2 mb-3">
               {presetAmounts.map((p) => (
                 <button key={p} onClick={() => handlePresetSelect(p)}
