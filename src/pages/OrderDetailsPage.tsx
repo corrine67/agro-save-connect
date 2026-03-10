@@ -6,6 +6,7 @@ import { format } from "date-fns";
 
 const OrderDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { orders } = useApp();
   const order = orders.find((o) => o.id === id);
 
