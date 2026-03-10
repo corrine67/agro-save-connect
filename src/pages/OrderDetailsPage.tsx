@@ -78,6 +78,11 @@ const OrderDetailsPage = () => {
             </div>
           )}
         </div>
+
+        <button onClick={() => navigate("/explore")}
+          className="w-full py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm flex items-center justify-center gap-2">
+          <ArrowLeft className="w-4 h-4" /> Back to Explore
+        </button>
       </div>
     </div>
   );

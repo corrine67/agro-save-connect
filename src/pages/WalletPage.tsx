@@ -29,6 +29,7 @@ const WalletPage = () => {
 
   const handleTopUp = () => {
     const val = parseFloat(amount);
+    if (!topUpBank) { toast.error("Please select a bank"); return; }
     if (!val || val <= 0) { toast.error("Enter valid amount"); return; }
     setWalletBalance((b) => b + val);
     setTransactions([
