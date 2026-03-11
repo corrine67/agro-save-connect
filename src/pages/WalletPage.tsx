@@ -21,7 +21,7 @@ const WalletPage = () => {
   const [topUpBank, setTopUpBank] = useState("");
   const [topUpAccount, setTopUpAccount] = useState("");
 
-  const closeAll = () => { setShowTopUp(false); setShowTransfer(false); setShowWithdraw(false); setAmount(""); setSelectedPreset(null); };
+  const closeAll = () => { setShowTopUp(false); setShowTransfer(false); setShowWithdraw(false); setAmount(""); setSelectedPreset(null); setTopUpBank(""); setTopUpAccount(""); };
 
   const handlePresetSelect = (val: number) => {
     setSelectedPreset(val);
