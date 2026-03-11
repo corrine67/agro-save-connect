@@ -49,6 +49,7 @@ const App = () => (
               <Route path="/edit-listing/:id" element={<EditListingPage />} />
               <Route path="/messages" element={<MessagesPage />} />
               <Route path="/chat/:id" element={<ChatPage />} />
+              <Route path="/donate-surplus/:id" element={<DonateSurplusPage />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
             <BottomNav />
