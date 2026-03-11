@@ -19,6 +19,7 @@ const WalletPage = () => {
   const [withdrawBank, setWithdrawBank] = useState("");
   const [withdrawAccount, setWithdrawAccount] = useState("");
   const [topUpBank, setTopUpBank] = useState("");
+  const [topUpAccount, setTopUpAccount] = useState("");
 
   const closeAll = () => { setShowTopUp(false); setShowTransfer(false); setShowWithdraw(false); setAmount(""); setSelectedPreset(null); };
 
