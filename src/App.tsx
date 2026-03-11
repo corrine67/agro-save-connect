@@ -20,6 +20,7 @@ import MyListingsPage from "@/pages/MyListingsPage";
 import EditListingPage from "@/pages/EditListingPage";
 import MessagesPage from "@/pages/MessagesPage";
 import ChatPage from "@/pages/ChatPage";
+import DonateSurplusPage from "@/pages/DonateSurplusPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
