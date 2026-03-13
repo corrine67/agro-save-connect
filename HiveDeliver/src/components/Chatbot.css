@@ -1,0 +1,120 @@
+.chatbot-container {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 320px;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.chatbot-messages {
+  flex: 1;
+  padding: 16px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+.chatbot-message {
+  margin-bottom: 10px;
+  padding: 8px 12px;
+  border-radius: 16px;
+  max-width: 80%;
+}
+
+.chatbot-bot {
+  background: #f0f0f0;
+  align-self: flex-start;
+}
+
+.chatbot-user {
+  background: #d1e7ff;
+  align-self: flex-end;
+}
+
+.chatbot-input-area {
+  display: flex;
+  padding: 8px;
+  border-top: 1px solid #eee;
+}
+
+.chatbot-input-area input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  margin-right: 8px;
+}
+
+.chatbot-input-area button {
+  padding: 8px 16px;
+  border-radius: 8px;
+  border: none;
+  background: #0f766e;
+  color: #fff;
+  cursor: pointer;
+}
+
+.chatbot-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 8px 16px 0 16px;
+  justify-content: flex-start;
+}
+
+.chatbot-action-btn {
+  background: #e3f2fd;
+  color: #1976d2;
+  border: none;
+  border-radius: 8px;
+  padding: 6px 12px;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 4px;
+  transition: background 0.2s;
+}
+.chatbot-action-btn:hover {
+  background: #bbdefb;
+}
+
+/* dark theme overrides aligned with application dark palette */
+.chatbot-container.dark {
+  border: 1px solid #0f766e; /* primary main */
+  background: #132330; /* paper dark */
+  color: #e2f0f5; /* text primary dark */
+}
+.chatbot-container.dark .chatbot-messages {
+  color: #e2f0f5;
+}
+.chatbot-container.dark .chatbot-bot {
+  background: #0d1b22; /* background default dark */
+  color: #e2f0f5;
+}
+.chatbot-container.dark .chatbot-user {
+  background: #0f766e; /* primary main for user messages */
+  color: #e2f0f5;
+}
+.chatbot-container.dark .chatbot-input-area {
+  border-top: 1px solid #0f766e;
+  background: #132330;
+}
+.chatbot-container.dark .chatbot-input-area input {
+  background: #0d1b22;
+  color: #e2f0f5;
+  border: 1px solid #0f766e;
+}
+.chatbot-container.dark .chatbot-input-area button {
+  background: #0f766e;
+  color: #e2f0f5;
+}
+.chatbot-container.dark .chatbot-actions {
+  background: #132330;
+}
+.chatbot-container.dark .chatbot-action-btn {
+  background: #0f766e;
+  color: #e2f0f5;
+}
+.chatbot-container.dark .chatbot-action-btn:hover {
+  background: #14b8a6; /* primary light */
+}

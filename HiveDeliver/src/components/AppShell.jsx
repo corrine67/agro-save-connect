@@ -17,6 +17,8 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined'
 import Sidebar, { drawerWidth } from './Sidebar.jsx'
 import { useColorMode } from '../ColorModeContext.jsx'
+import Chatbot from "./Chatbot.jsx";
+import { FaRobot } from 'react-icons/fa';
 
 const pageTitleByPath = {
   '/home': 'HiveDeliver Platform',
@@ -41,8 +43,9 @@ function AppShell({ children }) {
     [location.pathname],
   )
 
+  const [chatbotOpen, setChatbotOpen] = useState(false);
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: 'background.default' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', backgroundColor: 'background.default', position: 'relative' }}>
       <AppBar
         position="fixed"
         color="inherit"
@@ -72,6 +75,12 @@ function AppShell({ children }) {
           <Tooltip title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}>
             <IconButton onClick={toggleColorMode} color="inherit">
               {isDark ? <LightModeOutlinedIcon /> : <DarkModeOutlinedIcon />}
+            </IconButton>
+          </Tooltip>
+          {/* Chatbot Icon/Button beside color mode */}
+          <Tooltip title="AI Chatbot">
+            <IconButton onClick={() => setChatbotOpen((open) => !open)} color="primary" sx={{ ml: 1 }}>
+              <FaRobot />
             </IconButton>
           </Tooltip>
         </Toolbar>
@@ -116,6 +125,12 @@ function AppShell({ children }) {
       <Box component="main" sx={{ flexGrow: 1, p: { xs: 2, sm: 2.5, md: 3.2 } }}>
         <Toolbar />
         {children}
+        {/* Chatbot floating in bottom right, toggled by icon */}
+        {chatbotOpen && (
+          <Box sx={{ position: 'fixed', bottom: 24, right: 24, zIndex: 1300 }}>
+            <Chatbot />
+          </Box>
+        )}
       </Box>
     </Box>
   )
