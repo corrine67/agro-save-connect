@@ -6,16 +6,24 @@ import PageHeader from "@/components/PageHeader";
 import { formatDistanceToNow } from "date-fns";
 
 const NotificationsPage = () => {
-  const { notifications } = useApp();
+  const { notifications, orders, currentUser } = useApp();
   const [tab, setTab] = useState<"buyer" | "seller">("buyer");
   const navigate = useNavigate();
 
   const buyerNotifs = notifications.filter((n) =>
     ["order_shipped", "order_confirmed", "order_cancelled", "donation"].includes(n.type)
   );
-  const sellerNotifs = notifications.filter((n) =>
-    ["new_order", "order_cancelled_seller", "order_preparing"].includes(n.type)
-  );
+  
+  // Feature 3: Seller Updates should only show orders from OTHER buyers (not John buying his own listings)
+  const sellerNotifs = notifications.filter((n) => {
+    if (!["new_order", "order_cancelled_seller", "order_preparing"].includes(n.type)) {
+      return false;
+    }
+    // Find the order to check if the buyer is someone else
+    const order = orders.find((o) => o.id === n.orderId);
+    // Only include if the order exists AND the buyer is NOT the current user (John)
+    return order && order.buyerId !== currentUser.id;
+  });
 
   const current = tab === "buyer" ? buyerNotifs : sellerNotifs;
 
@@ -33,10 +41,10 @@ const NotificationsPage = () => {
   };
 
   const handleClick = (n: typeof notifications[0]) => {
+    // Fix 3: donation confirmed now navigates to order details
     if (n.type === "new_order") navigate(`/new-order/${n.orderId}`);
     else if (n.type === "order_cancelled_seller") navigate(`/refund/${n.orderId}`);
     else if (n.type === "order_preparing") navigate(`/order-details/${n.orderId}?from=seller`);
-    else if (n.type === "donation") return; // donation notifications are informational
     else navigate(`/order-details/${n.orderId}?from=notification`);
   };
 
