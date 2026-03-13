@@ -1,5 +1,5 @@
 import { useParams, useNavigate, useSearchParams } from "react-router-dom";
-import { Package, MapPin, Truck, CheckCircle, Clock, XCircle, ArrowLeft, Copy, Search, Printer, Phone, User } from "lucide-react";
+import { Package, MapPin, Truck, CheckCircle, Clock, XCircle, ArrowLeft, Copy, Search, Printer, User } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import PageHeader from "@/components/PageHeader";
 import { format } from "date-fns";
@@ -69,13 +69,15 @@ const OrderDetailsPage = () => {
             <User className="w-4 h-4 text-primary" />
             <span>{order.listing.seller}</span>
           </div>
-          <div className="flex items-center gap-2 text-sm text-muted-foreground">
-            <Phone className="w-4 h-4 text-primary" />
-            <span>+60198765432</span>
-          </div>
+          {order.listing.source && (
+            <div className="flex items-center gap-2 text-sm text-muted-foreground">
+              <MapPin className="w-4 h-4 text-primary" />
+              <span>{order.listing.source.location}</span>
+            </div>
+          )}
           <div className="flex items-start gap-2 text-sm text-muted-foreground">
             <MapPin className="w-4 h-4 text-primary mt-0.5" />
-            <span>{order.address}</span>
+            <span>Delivery to: {order.address}</span>
           </div>
           {order.trackingNumber && (
             <div className="pt-2 border-t border-border">

@@ -85,7 +85,7 @@ const OrderPage = () => {
     setNotifications([
       {
         id: `n${Date.now()}`, type: "order_confirmed", title: "Order Placed",
-        message: `Your order for ${listing.name} x${qty}kg has been placed. Seller: ${listing.seller}, Phone: +60198765432, Address: ${listing.source?.location || "N/A"}. Tracking: ${trackingNumber}`,
+        message: `Your order for ${listing.name} x${qty}kg has been placed. Seller: ${listing.seller}, Address: ${listing.source?.location || "N/A"}. Tracking: ${trackingNumber}`,
         orderId: newOrder.id, timestamp: new Date(), read: false,
       },
       {
