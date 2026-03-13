@@ -151,30 +151,31 @@ const defaultListings: Listing[] = [
     source: { name: "Community Food Hub", type: "Community Donor", location: "Cheras, KL", distance: 2.5 }, freshness: 4, bestBefore: "3 days" },
 ];
 
+// Fix 5: Short notification messages - "click to see details"
 const defaultNotifications: Notification[] = [
-  { id: "n1", type: "order_confirmed", title: "Order Confirmed", message: "Your order #1001 has been confirmed. Seller: Farmer Ali, Phone: +60198765432, Address: Serdang, Selangor. Tracking: TRK928347123", orderId: "o1", timestamp: new Date(Date.now() - 3600000), read: false },
-  { id: "n2", type: "order_shipped", title: "Order Shipped", message: "Your order #1002 has been shipped. Seller: Farmer Siti, Phone: +60187654321, Address: Cameron Highlands, Pahang. Tracking: MY123456789", orderId: "o2", timestamp: new Date(Date.now() - 7200000), read: false },
-  { id: "n3", type: "new_order", title: "New Order", message: "You received a new order for Potato", orderId: "o3", timestamp: new Date(Date.now() - 1800000), read: false },
+  { id: "n1", type: "order_confirmed", title: "Order Confirmed", message: "Your order #1001 has been confirmed. Click to see details.", orderId: "o1", timestamp: new Date(Date.now() - 3600000), read: false },
+  { id: "n2", type: "order_shipped", title: "Order Shipped", message: "Your order #1002 has been shipped. Click to see details.", orderId: "o2", timestamp: new Date(Date.now() - 7200000), read: false },
+  { id: "n3", type: "new_order", title: "New Order", message: "You received a new order for Potato. Click to see details.", orderId: "o3", timestamp: new Date(Date.now() - 1800000), read: false },
 ];
 
 const defaultOrders: Order[] = [
   {
     id: "o1", listing: defaultListings[0], quantity: 5, totalPrice: 17.5,
     status: "confirmed", buyerId: "user1", sellerId: "seller1",
-    createdAt: new Date(Date.now() - 86400000), address: "123 Farm Road, Kuala Lumpur",
+    createdAt: new Date(Date.now() - 86400000), address: "123 Farm aroad, Kuala Lumpur",
     buyerName: "John Farmer", buyerPhone: "+60123456789",
   },
   {
     id: "o2", listing: defaultListings[1], quantity: 3, totalPrice: 15.0,
     status: "shipped", buyerId: "user1", sellerId: "seller2", trackingNumber: "MY123456789",
-    createdAt: new Date(Date.now() - 172800000), address: "456 Green Street, Penang",
+    createdAt: new Date(Date.now() - 172800000), address: "123 Farm aroad, Kuala Lumpur",
     buyerName: "John Farmer", buyerPhone: "+60123456789",
   },
   {
     id: "o3", listing: defaultListings[0], quantity: 10, totalPrice: 35.0,
     status: "pending", buyerId: "buyer1", sellerId: "user1",
-    createdAt: new Date(Date.now() - 900000), address: "789 Market Ave, Johor",
-    buyerName: "Ahmad", buyerPhone: "+60176543210",
+    createdAt: new Date(Date.now() - 900000), address: "123 Farm aroad, Kuala Lumpur",
+    buyerName: "John Farmer", buyerPhone: "+60123456789",
   },
 ];
 
@@ -221,7 +222,7 @@ const defaultScanHistory: ScanRecord[] = [
 export const AppProvider = ({ children }: { children: ReactNode }) => {
   const [currentUser, setCurrentUser] = useState<UserProfile>({
     id: "user1", username: "John Farmer", phone: "+60123456789",
-    email: "john@agrosave.com", avatar: "👨‍🌾", address: "123 Farm Road, Kuala Lumpur",
+    email: "john@agrosave.com", avatar: "👨‍🌾", address: "123 Farm aroad, Kuala Lumpur",
   });
   const [walletBalance, setWalletBalance] = useState(5560.0);
   const [listings, setListings] = useState<Listing[]>(defaultListings);

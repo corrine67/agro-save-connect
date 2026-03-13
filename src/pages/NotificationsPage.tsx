@@ -33,10 +33,10 @@ const NotificationsPage = () => {
   };
 
   const handleClick = (n: typeof notifications[0]) => {
+    // Fix 3: donation confirmed now navigates to order details
     if (n.type === "new_order") navigate(`/new-order/${n.orderId}`);
     else if (n.type === "order_cancelled_seller") navigate(`/refund/${n.orderId}`);
     else if (n.type === "order_preparing") navigate(`/order-details/${n.orderId}?from=seller`);
-    else if (n.type === "donation") return; // donation notifications are informational
     else navigate(`/order-details/${n.orderId}?from=notification`);
   };
 

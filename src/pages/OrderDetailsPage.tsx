@@ -5,6 +5,9 @@ import PageHeader from "@/components/PageHeader";
 import { format } from "date-fns";
 import { toast } from "sonner";
 
+const DEFAULT_NAME = "John Farmer";
+const DEFAULT_ADDRESS = "123 Farm aroad, Kuala Lumpur";
+
 const OrderDetailsPage = () => {
   const { id } = useParams();
   const [searchParams] = useSearchParams();
@@ -28,10 +31,10 @@ const OrderDetailsPage = () => {
   const isCancelled = order.status === "cancelled";
 
   const handleBuyerCancel = () => {
-    // Deduct refund from seller wallet
-    setWalletBalance((b) => b - order.totalPrice);
+    // Fix 6: ADD back refund to buyer wallet (not deduct)
+    setWalletBalance((b) => b + order.totalPrice);
     setTransactions([
-      { id: `t${Date.now()}`, type: "refund" as const, amount: -order.totalPrice, description: `Refund: ${order.listing.name}`, timestamp: new Date() },
+      { id: `t${Date.now()}`, type: "refund" as const, amount: order.totalPrice, description: `Refund: ${order.listing.name}`, timestamp: new Date() },
       ...transactions,
     ]);
     setOrders(orders.map((o) =>
@@ -48,6 +51,10 @@ const OrderDetailsPage = () => {
     toast.info("Order cancelled. Refund processed.");
     navigate("/notifications");
   };
+
+  // Fix 8: When viewing from notification, use default buyer info
+  const displayName = fromNotification ? DEFAULT_NAME : (order.buyerName || DEFAULT_NAME);
+  const displayAddress = fromNotification ? DEFAULT_ADDRESS : (order.address || DEFAULT_ADDRESS);
 
   return (
     <div className="min-h-screen bg-background pb-20">
@@ -67,7 +74,7 @@ const OrderDetailsPage = () => {
           <h3 className="font-medium text-foreground text-sm">Delivery Information</h3>
           <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <User className="w-4 h-4 text-primary" />
-            <span>{order.listing.seller}</span>
+            <span>{displayName}</span>
           </div>
           {order.listing.source && (
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -77,7 +84,7 @@ const OrderDetailsPage = () => {
           )}
           <div className="flex items-start gap-2 text-sm text-muted-foreground">
             <MapPin className="w-4 h-4 text-primary mt-0.5" />
-            <span>Delivery to: {order.address}</span>
+            <span>Delivery to: {displayAddress}</span>
           </div>
           {order.trackingNumber && (
             <div className="pt-2 border-t border-border">

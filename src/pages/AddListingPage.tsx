@@ -17,11 +17,11 @@ const AddListingPage = () => {
   const [stock, setStock] = useState("");
   const [imagePreview, setImagePreview] = useState<string | null>(null);
 
-  // Freshness fields
+  // Freshness fields - always shown, default to 3
   const [freshness, setFreshness] = useState<FreshnessLevel>(3);
   const [bestBefore, setBestBefore] = useState("");
 
-  // Food source fields
+  // Food source fields - always shown with defaults
   const [sourceName, setSourceName] = useState("");
   const [sourceType, setSourceType] = useState<typeof sourceTypes[number]>("Farm");
   const [sourceLocation, setSourceLocation] = useState("");
@@ -41,6 +41,7 @@ const AddListingPage = () => {
       toast.error("Please fill in all required fields");
       return;
     }
+    // Fix 2: Always include freshness and source (with defaults if not filled)
     const newListing = {
       id: Date.now().toString(),
       name,
@@ -51,14 +52,12 @@ const AddListingPage = () => {
       sellerId: currentUser.id,
       freshness,
       bestBefore: bestBefore || undefined,
-      source: sourceName
-        ? {
-            name: sourceName,
-            type: sourceType,
-            location: sourceLocation || currentUser.address || "Malaysia",
-            distance: parseFloat(sourceDistance) || 0,
-          }
-        : undefined,
+      source: {
+        name: sourceName || `${currentUser.username}'s Source`,
+        type: sourceType,
+        location: sourceLocation || currentUser.address || "Malaysia",
+        distance: parseFloat(sourceDistance) || 0,
+      },
     };
     setListings([newListing, ...listings]);
     toast.success("Listing added successfully!");
@@ -116,7 +115,7 @@ const AddListingPage = () => {
           />
         </div>
 
-        {/* Freshness Level */}
+        {/* Freshness Level - always shown */}
         <div className="bg-card rounded-xl p-4 border border-border space-y-3">
           <h3 className="text-sm font-semibold text-foreground">Food Freshness</h3>
           <div>
@@ -152,11 +151,11 @@ const AddListingPage = () => {
           </div>
         </div>
 
-        {/* Food Source */}
+        {/* Food Source - always shown, optional fields but source always saved */}
         <div className="bg-card rounded-xl p-4 border border-border space-y-3">
-          <h3 className="text-sm font-semibold text-foreground">Food Source <span className="text-xs font-normal text-muted-foreground">(optional)</span></h3>
+          <h3 className="text-sm font-semibold text-foreground">Food Source</h3>
           <div>
-            <label className="text-xs font-medium text-foreground mb-1 block">Source Name</label>
+            <label className="text-xs font-medium text-foreground mb-1 block">Source Name <span className="text-muted-foreground font-normal">(optional)</span></label>
             <input
               value={sourceName}
               onChange={(e) => setSourceName(e.target.value)}
@@ -177,7 +176,7 @@ const AddListingPage = () => {
             </select>
           </div>
           <div>
-            <label className="text-xs font-medium text-foreground mb-1 block">Location</label>
+            <label className="text-xs font-medium text-foreground mb-1 block">Location <span className="text-muted-foreground font-normal">(optional)</span></label>
             <input
               value={sourceLocation}
               onChange={(e) => setSourceLocation(e.target.value)}
@@ -186,7 +185,7 @@ const AddListingPage = () => {
             />
           </div>
           <div>
-            <label className="text-xs font-medium text-foreground mb-1 block">Distance from you (km)</label>
+            <label className="text-xs font-medium text-foreground mb-1 block">Distance from you (km) <span className="text-muted-foreground font-normal">(optional)</span></label>
             <input
               value={sourceDistance}
               onChange={(e) => setSourceDistance(e.target.value)}
