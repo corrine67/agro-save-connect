@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 import {
   Box,
   List,
@@ -7,26 +7,42 @@ import {
   ListItemText,
   Stack,
   Typography,
+  Divider,
+  Button,
 } from '@mui/material'
 import { HiCubeTransparent, HiMap, HiChartBarSquare, HiCpuChip } from 'react-icons/hi2'
 import { FaHouse, FaClipboardList } from 'react-icons/fa6'
 import { GiDeliveryDrone } from 'react-icons/gi'
+import { MdLogout } from 'react-icons/md'
+import { useAuth } from '../contexts/AuthContext.jsx'
 
 export const drawerWidth = 276
 
-const navItems = [
-  { label: 'Home', path: '/home', icon: <FaHouse /> },
-  { label: 'Delivery Dashboard', path: '/dashboard', icon: <HiCubeTransparent /> },
-  { label: 'Live Drone Map', path: '/map', icon: <HiMap /> },
-  { label: 'Create Delivery Order', path: '/order', icon: <FaClipboardList /> },
-  { label: 'Swarm Intelligence', path: '/intelligence', icon: <HiCpuChip /> },
-  { label: 'Analytics', path: '/analytics', icon: <HiChartBarSquare /> },
-  { label: 'Fleet Management', path: '/fleet', icon: <GiDeliveryDrone /> },
+const allNavItems = [
+  { label: 'Home', path: '/home', icon: <FaHouse />, roles: ['admin', 'manager', 'user'] },
+  { label: 'Delivery Dashboard', path: '/dashboard', icon: <HiCubeTransparent />, roles: ['admin', 'manager'] },
+  { label: 'Live Drone Map', path: '/map', icon: <HiMap />, roles: ['admin', 'manager', 'user'] },
+  { label: 'Create Delivery Order', path: '/order', icon: <FaClipboardList />, roles: ['admin', 'manager', 'user'] },
+  { label: 'Swarm Intelligence', path: '/intelligence', icon: <HiCpuChip />, roles: ['admin'] },
+  { label: 'Analytics', path: '/analytics', icon: <HiChartBarSquare />, roles: ['admin', 'manager'] },
+  { label: 'Fleet Management', path: '/fleet', icon: <GiDeliveryDrone />, roles: ['admin'] },
 ]
 
 function Sidebar({ onNavigate }) {
+  const { logout, user } = useAuth()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login', { replace: true })
+  }
+
+  // Filter nav items based on user role
+  const userRole = user?.role || 'user'
+  const navItems = allNavItems.filter((item) => item.roles.includes(userRole))
+
   return (
-    <Box sx={{ height: '100%', p: 2.2 }}>
+    <Box sx={{ height: '100%', p: 2.2, display: 'flex', flexDirection: 'column' }}>
       <Stack direction="row" spacing={1.2} alignItems="center" sx={{ mb: 2.2, px: 1 }}>
         <Box
           sx={{
@@ -53,7 +69,7 @@ function Sidebar({ onNavigate }) {
         </Stack>
       </Stack>
 
-      <List sx={{ p: 0 }}>
+      <List sx={{ p: 0, flex: 1 }}>
         {navItems.map((item) => (
           <ListItemButton
             key={item.path}
@@ -83,6 +99,18 @@ function Sidebar({ onNavigate }) {
           </ListItemButton>
         ))}
       </List>
+
+      <Divider sx={{ my: 2 }} />
+      <Button
+        fullWidth
+        variant="outlined"
+        color="error"
+        startIcon={<MdLogout />}
+        onClick={handleLogout}
+        sx={{ fontWeight: 600 }}
+      >
+        Logout
+      </Button>
     </Box>
   )
 }

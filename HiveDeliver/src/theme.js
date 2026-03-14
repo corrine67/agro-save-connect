@@ -19,7 +19,7 @@ export function createAppTheme(mode) {
           }
         : {
             background: { default: '#0d1b22', paper: '#132330' },
-            text: { primary: '#e2f0f5', secondary: '#94a3b8' },
+            text: { primary: '#00ffcc', secondary: '#00ff99' },
           }),
     },
     shape: { borderRadius: 14 },

@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { Navigate, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes, Outlet } from 'react-router-dom'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import { ColorModeContext } from './ColorModeContext.jsx'
 import { createAppTheme } from './theme.js'
@@ -11,6 +11,16 @@ import CreateOrderPage from './pages/CreateOrderPage.jsx'
 import IntelligencePage from './pages/IntelligencePage.jsx'
 import AnalyticsPage from './pages/AnalyticsPage.jsx'
 import FleetPage from './pages/FleetPage.jsx'
+import LoginPage from './pages/LoginPage.jsx'
+import RegisterPage from './pages/RegisterPage.jsx'
+
+function AppLayout() {
+  return (
+    <AppShell>
+      <Outlet />
+    </AppShell>
+  )
+}
 
 function App() {
   const [mode, setMode] = useState('light')
@@ -29,20 +39,22 @@ function App() {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <AppShell>
-      <Routes>
-        <Route path="/" element={<Navigate to="/home" replace />} />
-        <Route path="/home" element={<LandingPage />} />
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/map" element={<LiveMapPage />} />
-        <Route path="/order" element={<CreateOrderPage />} />
-        <Route path="/intelligence" element={<IntelligencePage />} />
-        <Route path="/analytics" element={<AnalyticsPage />} />
-        <Route path="/fleet" element={<FleetPage />} />
-        <Route path="*" element={<Navigate to="/home" replace />} />
-      </Routes>
-    </AppShell>
-        </ThemeProvider>
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route element={<AppLayout />}>
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/home" element={<LandingPage />} />
+            <Route path="/dashboard" element={<DashboardPage />} />
+            <Route path="/map" element={<LiveMapPage />} />
+            <Route path="/order" element={<CreateOrderPage />} />
+            <Route path="/intelligence" element={<IntelligencePage />} />
+            <Route path="/analytics" element={<AnalyticsPage />} />
+            <Route path="/fleet" element={<FleetPage />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/home" replace />} />
+        </Routes>
+      </ThemeProvider>
     </ColorModeContext.Provider>
   )
 }
