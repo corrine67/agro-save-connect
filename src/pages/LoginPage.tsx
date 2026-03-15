@@ -183,7 +183,7 @@ const LoginPage = () => {
           <p className="text-sm text-muted-foreground">
             Don't have an account?{" "}
             <button
-              onClick={() => navigate("/signup")}
+              onClick={() => navigate("/register")}
               className="text-primary font-semibold hover:underline"
             >
               Create Account

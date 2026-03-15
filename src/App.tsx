@@ -26,6 +26,7 @@ import CommunityMapPage from "@/pages/CommunityMapPage";
 import PrintLabelPage from "@/pages/PrintLabelPage";
 import SettingsPage from "@/pages/SettingsPage";
 import FarmerProfilePage from "@/pages/FarmerProfilePage";
+import RegisterPage from "@/pages/RegisterPage";
 import NotFound from "@/pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ const AppContent = () => {
       <Routes>
         <Route path="/" element={<SplashPage />} />
         <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/pest-detect" element={<PestDetectPage />} />
         <Route path="/add-listing" element={<AddListingPage />} />
