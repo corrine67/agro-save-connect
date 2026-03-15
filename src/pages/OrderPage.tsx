@@ -21,6 +21,7 @@ const OrderPage = () => {
   const [qty, setQty] = useState(1);
   const [chatMessage, setChatMessage] = useState("");
   const [showChatBox, setShowChatBox] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   if (!listing) return <div className="p-4">Item not found</div>;
 
@@ -45,7 +46,11 @@ const OrderPage = () => {
 
   const handleSendChat = () => {
     if (listing.sellerId === currentUser.id) return;
-    const msgText = chatMessage.trim() || `Hi, I'm interested in your ${listing.name}!`;
+    if (!chatMessage.trim() && !selectedImage) {
+      toast.error("Please enter a message or select an image");
+      return;
+    }
+    const msgText = chatMessage.trim() || (selectedImage ? `[Image: ${selectedImage.name}]` : `Hi, I'm interested in your ${listing.name}!`);
     const existing = chatThreads.find((t) => t.participantId === listing.sellerId);
     if (existing) {
       const newMsg = { id: `m${Date.now()}`, senderId: currentUser.id, text: msgText, timestamp: new Date() };
@@ -66,6 +71,8 @@ const OrderPage = () => {
       setChatThreads([newThread, ...chatThreads]);
       navigate(`/chat/${newThread.id}`);
     }
+    setChatMessage("");
+    setSelectedImage(null);
   };
 
   const handlePurchase = () => {
@@ -182,11 +189,22 @@ const OrderPage = () => {
                       className="w-full px-3 py-2 rounded-lg bg-background border border-border text-sm focus:outline-none focus:ring-2 focus:ring-primary/30 resize-none"
                     />
                     <div className="flex gap-2">
+                      <input
+                        type="file"
+                        accept="image/*"
+                        onChange={(e) => setSelectedImage(e.target.files?.[0] || null)}
+                        className="flex-1 text-xs text-muted-foreground file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-medium file:bg-primary file:text-primary-foreground cursor-pointer"
+                      />
+                    </div>
+                    {selectedImage && (
+                      <p className="text-xs text-muted-foreground">📎 {selectedImage.name}</p>
+                    )}
+                    <div className="flex gap-2">
                       <button onClick={handleSendChat}
                         className="flex-1 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium flex items-center justify-center gap-2">
                         <MessageCircle className="w-4 h-4" /> Send Message
                       </button>
-                      <button onClick={() => setShowChatBox(false)}
+                      <button onClick={() => { setShowChatBox(false); setSelectedImage(null); }}
                         className="py-2 px-3 rounded-lg border border-border text-foreground text-sm font-medium">
                         Cancel
                       </button>

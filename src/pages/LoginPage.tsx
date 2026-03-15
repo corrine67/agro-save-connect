@@ -1,15 +1,57 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Mail, Lock, ArrowRight, Leaf, AlertCircle } from "lucide-react";
+import { Mail, Lock, ArrowRight, Leaf, AlertCircle, Fingerprint } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { toast } from "sonner";
 
 const LoginPage = () => {
   const navigate = useNavigate();
-  const { setCurrentUser } = useApp();
+  const { setCurrentUser, currentUser } = useApp();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [usePasskey, setUsePasskey] = useState(false);
+  const [isAutoLogin, setIsAutoLogin] = useState(false);
+
+  // Auto-login on component mount if user was previously logged in
+  useEffect(() => {
+    const savedUser = localStorage.getItem("agrosave_user");
+    if (savedUser && !currentUser.id) {
+      try {
+        const user = JSON.parse(savedUser);
+        setCurrentUser(user);
+        setIsAutoLogin(true);
+        toast.success("Auto-login successful!");
+        setTimeout(() => {
+          navigate("/explore", { replace: true });
+        }, 500);
+      } catch (error) {
+        console.error("Failed to restore user session:", error);
+        localStorage.removeItem("agrosave_user");
+      }
+    }
+  }, []);
+
+  const handlePasskeyLogin = () => {
+    // Passkey for John Farmer: "john123"
+    setIsLoading(true);
+    setTimeout(() => {
+      const johnFarmerUser = {
+        id: "user1",
+        username: "John Farmer",
+        phone: "+60123456789",
+        email: "john@agrosave.com",
+        address: "123 Farm Road, Kuala Lumpur",
+        avatar: "👨‍🌾",
+        accountNumber: "AGS3847291056",
+      };
+      setCurrentUser(johnFarmerUser);
+      localStorage.setItem("agrosave_user", JSON.stringify(johnFarmerUser));
+      toast.success("Passkey login successful!");
+      navigate("/explore", { replace: true });
+      setIsLoading(false);
+    }, 1500);
+  };
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,23 +61,60 @@ const LoginPage = () => {
       return;
     }
 
-    setIsLoading(true);
+    // Check for John Farmer passkey
+    if (email.toLowerCase() === "john@agrosave.com" && password === "john123") {
+      setIsLoading(true);
+      setTimeout(() => {
+        const johnFarmerUser = {
+          id: "user1",
+          username: "John Farmer",
+          phone: "+60123456789",
+          email: email,
+          address: "123 Farm Road, Kuala Lumpur",
+          avatar: "👨‍🌾",
+          accountNumber: "AGS3847291056",
+        };
+        setCurrentUser(johnFarmerUser);
+        localStorage.setItem("agrosave_user", JSON.stringify(johnFarmerUser));
+        toast.success("Login successful!");
+        navigate("/explore", { replace: true });
+        setIsLoading(false);
+      }, 1500);
+      return;
+    }
 
+    // Generic login for any other email/password
+    setIsLoading(true);
     setTimeout(() => {
-      setCurrentUser({
-        id: "user1",
-        username: "John Farmer",
+      const user = {
+        id: `user_${Date.now()}`,
+        username: email.split("@")[0],
         phone: "+60123456789",
         email: email,
         address: "123 Farm Road, Kuala Lumpur",
-        avatar: "👨‍🌾",
-        accountNumber: "AGS3847291056",
-      });
+        avatar: "👤",
+        accountNumber: `AGS${Math.random().toString().slice(2, 12)}`,
+      };
+      setCurrentUser(user);
+      localStorage.setItem("agrosave_user", JSON.stringify(user));
       toast.success("Login successful!");
       navigate("/explore", { replace: true });
       setIsLoading(false);
     }, 1500);
   };
+
+  if (isAutoLogin) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/5 flex flex-col items-center justify-center px-4 py-6">
+        <div className="text-center">
+          <div className="animate-spin mb-4">
+            <Leaf className="w-12 h-12 text-primary" />
+          </div>
+          <p className="text-sm text-muted-foreground">Signing you in...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/5 via-background to-primary/5 flex flex-col items-center justify-center px-4 py-6">
@@ -47,6 +126,28 @@ const LoginPage = () => {
             <h1 className="text-2xl font-bold text-foreground">AgroSave</h1>
           </div>
           <p className="text-sm text-muted-foreground">Fresh from farm to you</p>
+        </div>
+
+        {/* Passkey Quick Login Button */}
+        <button
+          onClick={handlePasskeyLogin}
+          disabled={isLoading}
+          className="w-full mb-4 py-2.5 rounded-lg bg-primary/10 border border-primary/30 text-primary font-semibold text-sm flex items-center justify-center gap-2 hover:bg-primary/20 transition-colors disabled:opacity-50"
+        >
+          <Fingerprint className="w-4 h-4" />
+          {isLoading ? "Signing in..." : "Quick Login - John Farmer"}
+        </button>
+
+        {/* Divider */}
+        <div className="relative mb-6">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-border"></div>
+          </div>
+          <div className="relative flex justify-center text-xs">
+            <span className="px-2 bg-gradient-to-br from-primary/5 via-background to-primary/5 text-muted-foreground">
+              Or sign in with email
+            </span>
+          </div>
         </div>
 
         {/* Login Form */}
@@ -108,7 +209,7 @@ const LoginPage = () => {
         <div className="mt-8 flex items-start gap-2 text-muted-foreground">
           <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
           <p className="text-[10px] leading-relaxed">
-            This is a demo version of AgroSave Connect. You can log in with any email and password to explore the features.
+            Demo passkey: john@agrosave.com / john123. You can also log in with any email and password. Your session will be saved automatically.
           </p>
         </div>
       </div>
