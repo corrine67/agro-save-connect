@@ -35,7 +35,7 @@ const AppContent = () => {
   const location = useLocation();
   
   // Hide BottomNav on splash, login, and some detail pages
-  const hideNavOn = ["/", "/login", "/splash"];
+  const hideNavOn = ["/", "/login", "/register", "/splash"];
   const shouldShowNav = !hideNavOn.includes(location.pathname);
 
   return (
