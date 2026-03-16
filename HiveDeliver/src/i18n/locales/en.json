@@ -222,7 +222,9 @@
     "priorityHigh": "High",
     "assignDrone": "Assign Drone",
     "noDronesAvailable": "No idle drones are currently available. Please try again in a few minutes.",
-    "droneAssigned": "Drone {{droneId}} assigned. Estimated delivery time: {{eta}} minutes."
+    "droneAssigned": "Drone {{droneId}} assigned. Estimated delivery time: {{eta}} minutes.",
+    "swarmAssigned": "AI Swarm engaged! Drones {{drone1}} & {{drone2}} cooperating for heavy delivery. ETA: {{eta}} minutes.",
+    "heavyWeightAlert": "Heavy parcel detected (>5kg). Activating Swarm Intelligence for cooperative delivery."
   },
   "history": {
     "title": "Delivery History",
@@ -241,26 +243,13 @@
     "delivered": "Delivered",
     "cancelled": "Cancelled",
     "failed": "Failed",
-    "noResults": "No deliveries match the current filters."
-  },
-  "addresses": {
-    "title": "Saved Addresses",
-    "subtitle": "Save frequently used delivery destinations for faster order creation.",
-    "totalSaved": "{{count}} saved addresses",
-    "addNew": "Add New Address",
-    "editAddress": "Edit Address",
-    "addAddress": "Add Address",
-    "addressLabel": "Address Label",
-    "contactName": "Contact Name",
-    "contactPhone": "Contact Phone",
-    "fullAddress": "Full Address",
-    "cancel": "Cancel",
-    "saveChanges": "Save Changes",
-    "saveAddress": "Save Address"
+    "noResults": "No deliveries match the current filters.",
+    "feedbackTitle": "Your Feedback Matters",
+    "feedbackSubtitle": "Scan the QR code to tell us about your experience!",
+    "scanPrompt": "Scan to provide feedback"
   },
   "notifications": {
     "panelTitle": "Delivery Notifications",
-    "markAllRead": "Mark all as read",
     "pageTitle": "Notifications",
     "pageSubtitle": "Stay updated with your latest dispatch, ETA, and delivery events.",
     "unreadCount": "{{count}} unread notifications",
