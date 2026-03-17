@@ -95,7 +95,6 @@ function InteractiveFeaturesPage() {
 
   const handleStartListening = () => {
     setIsListening(true)
-    // Simulate voice recognition
     setTimeout(() => {
       setVoiceInput('Assign Drone H3 to Parcel P102')
       setIsListening(false)
@@ -104,7 +103,6 @@ function InteractiveFeaturesPage() {
   }
 
   const handleExecuteVoiceCommand = () => {
-    // Execute the voice command
     setVoiceDialog(false)
     setVoiceInput('')
   }
@@ -113,8 +111,8 @@ function InteractiveFeaturesPage() {
     <Stack spacing={3}>
       <Box className="reveal-up">
         <PageHeader
-          title="Interactive Features"
-          subtitle="Live Drone-Eye View and Voice Commands for Dispatch"
+          title={t('interactive.title')}
+          subtitle={t('interactive.subtitle')}
         />
       </Box>
 
@@ -127,14 +125,14 @@ function InteractiveFeaturesPage() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <FaCamera style={{ color: '#3b82f6', fontSize: '1.5rem' }} />
                   <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                    Live Drone-Eye View
+                    {t('interactive.liveDroneView')}
                   </Typography>
                 </Box>
                 <Typography variant="h4" sx={{ fontWeight: 700, color: '#3b82f6' }}>
                   3
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Active camera feeds
+                  {t('interactive.activeCameraFeeds')}
                 </Typography>
               </Stack>
             </CardContent>
@@ -148,14 +146,14 @@ function InteractiveFeaturesPage() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <FaMicrophone style={{ color: '#a855f7', fontSize: '1.5rem' }} />
                   <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                    Voice Commands
+                    {t('interactive.voiceCommands')}
                   </Typography>
                 </Box>
                 <Typography variant="h4" sx={{ fontWeight: 700, color: '#a855f7' }}>
                   4
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Commands today
+                  {t('interactive.commandsToday')}
                 </Typography>
               </Stack>
             </CardContent>
@@ -170,15 +168,15 @@ function InteractiveFeaturesPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <FaCamera style={{ color: '#0f766e', fontSize: '1.3rem' }} />
               <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                Live Drone-Eye View
+                {t('interactive.liveDroneView')}
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ color: '#666' }}>
-              Watch real-time video feeds from active delivery drones. Monitor altitude, speed, location, and delivery progress from the drone's perspective.
+              {t('interactive.liveDroneViewDesc')}
             </Typography>
 
             <Alert severity="info">
-              📹 <strong>Camera Feed:</strong> Each drone is equipped with a high-resolution camera that streams live video to the dispatch center. Use this to verify delivery locations, monitor traffic conditions, and ensure safe operations.
+              📹 <strong>{t('interactive.cameraFeedLabel')}:</strong> {t('interactive.cameraFeedDesc')}
             </Alert>
 
             <Grid container spacing={2}>
@@ -226,7 +224,7 @@ function InteractiveFeaturesPage() {
                           onClick={() => setSelectedFeed(feed)}
                           sx={{ mt: 1, textTransform: 'none' }}
                         >
-                          View Full Feed
+                          {t('interactive.viewFullFeed')}
                         </Button>
                       </Stack>
                     </CardContent>
@@ -245,15 +243,15 @@ function InteractiveFeaturesPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <FaMicrophone style={{ color: '#0f766e', fontSize: '1.3rem' }} />
               <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                Voice Commands for Dispatch
+                {t('interactive.voiceCommandsTitle')}
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ color: '#666' }}>
-              Control the drone fleet hands-free using natural language voice commands. Perfect for busy dispatch managers who need to multitask.
+              {t('interactive.voiceCommandsDesc')}
             </Typography>
 
             <Alert severity="success">
-              🎤 <strong>Voice Recognition:</strong> Powered by advanced speech-to-text AI. Supports commands like "Assign Drone H3 to Parcel P102", "Show battery status", "Initiate handoff", and more.
+              🎤 <strong>{t('interactive.voiceRecognitionLabel')}:</strong> {t('interactive.voiceRecognitionDesc')}
             </Alert>
 
             <Box sx={{ display: 'flex', gap: 2 }}>
@@ -269,15 +267,15 @@ function InteractiveFeaturesPage() {
                   fontWeight: 600,
                 }}
               >
-                {isListening ? '🔴 Listening...' : '🎤 Start Voice Command'}
+                {isListening ? t('interactive.listening') : t('interactive.startVoiceCommand')}
               </Button>
               <Button variant="outlined" disabled>
-                {isListening ? 'Recording...' : 'Ready for command'}
+                {isListening ? t('interactive.recording') : t('interactive.readyForCommand')}
               </Button>
             </Box>
 
             <Typography variant="h6" sx={{ fontWeight: 700, mt: 3 }}>
-              Recent Voice Commands
+              {t('interactive.recentVoiceCommands')}
             </Typography>
 
             <Stack spacing={1}>
@@ -301,7 +299,7 @@ function InteractiveFeaturesPage() {
                           sx={{ backgroundColor: 'rgba(34,197,94,0.2)', color: '#22c55e' }}
                         />
                         <Typography variant="caption" sx={{ color: '#666' }}>
-                          {cmd.confidence}% confidence
+                          {cmd.confidence}% {t('interactive.confidence')}
                         </Typography>
                       </Stack>
                     </Box>
@@ -311,32 +309,30 @@ function InteractiveFeaturesPage() {
             </Stack>
 
             <Alert severity="info">
-              💡 <strong>Supported Commands:</strong>
+              💡 <strong>{t('interactive.supportedCommandsLabel')}:</strong>
               <ul style={{ margin: '8px 0', paddingLeft: '20px' }}>
-                <li>"Assign Drone [ID] to Parcel [ID]"</li>
-                <li>"Show battery status for [Drone ID]"</li>
-                <li>"Initiate handoff between [Drone1] and [Drone2]"</li>
-                <li>"Get live map for [Drone ID]"</li>
-                <li>"Optimize multi-stop route for [Drone ID]"</li>
+                <li>{t('interactive.cmd1')}</li>
+                <li>{t('interactive.cmd2')}</li>
+                <li>{t('interactive.cmd3')}</li>
+                <li>{t('interactive.cmd4')}</li>
+                <li>{t('interactive.cmd5')}</li>
               </ul>
             </Alert>
           </Stack>
         </CardContent>
       </Card>
 
-      {/* Full Feed Dialog */}
+      {/* Full Feed Dialog with CameraFeed Component */}
       <Dialog open={Boolean(selectedFeed)} onClose={() => setSelectedFeed(null)} maxWidth="md" fullWidth>
         <DialogTitle sx={{ fontWeight: 700 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <FaCamera style={{ color: '#0f766e' }} />
-            Live Feed - Drone {selectedFeed?.droneId}
+            {t('interactive.liveFeedTitle')} {selectedFeed?.droneId}
           </Box>
         </DialogTitle>
-        <DialogContent>
+        <DialogContent sx={{ p: 2 }}>
           {selectedFeed && (
-            <Box sx={{ mt: 2 }}>
-              <CameraFeed feed={selectedFeed} onClose={() => setSelectedFeed(null)} />
-            </Box>
+            <CameraFeed feed={selectedFeed} onClose={() => setSelectedFeed(null)} />
           )}
         </DialogContent>
       </Dialog>
@@ -346,13 +342,13 @@ function InteractiveFeaturesPage() {
         <DialogTitle sx={{ fontWeight: 700 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <FaMicrophone style={{ color: '#0f766e' }} />
-            Voice Command Detected
+            {t('interactive.voiceCommandDetected')}
           </Box>
         </DialogTitle>
         <DialogContent>
           <Stack spacing={2} sx={{ mt: 2 }}>
             <Alert severity="info">
-              The system detected the following command. Click "Execute" to proceed.
+              {t('interactive.voiceCommandPrompt')}
             </Alert>
             <Card variant="outlined" sx={{ borderRadius: 1.5, backgroundColor: 'rgba(59,130,246,0.05)' }}>
               <CardContent>
@@ -364,9 +360,9 @@ function InteractiveFeaturesPage() {
           </Stack>
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setVoiceDialog(false)}>Cancel</Button>
+          <Button onClick={() => setVoiceDialog(false)}>{t('interactive.cancel')}</Button>
           <Button onClick={handleExecuteVoiceCommand} variant="contained">
-            Execute Command
+            {t('interactive.executeCommand')}
           </Button>
         </DialogActions>
       </Dialog>
