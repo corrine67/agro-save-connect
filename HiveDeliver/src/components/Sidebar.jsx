@@ -20,19 +20,18 @@ import { useAuth } from '../contexts/AuthContext.jsx'
 export const drawerWidth = 270
 
 const allNavItems = [
-  { key: 'home', label: 'Home', path: '/home', icon: <FaHouse />, roles: ['admin', 'manager'] },
   { key: 'dashboard', label: 'Delivery Dashboard', path: '/dashboard', icon: <HiCubeTransparent />, roles: ['admin', 'manager', 'user'] },
   { key: 'order', label: 'Create Delivery Order', path: '/order', icon: <FaClipboardList />, roles: ['admin', 'manager', 'user'] },
   { key: 'map', label: 'Live Drone Map', path: '/map', icon: <HiMap />, roles: ['admin', 'manager', 'user'] },
   { key: 'history', label: 'Delivery History', path: '/history', icon: <MdHistory />, roles: ['user'] },
   { key: 'addresses', label: 'Saved Addresses', path: '/addresses', icon: <FaLocationDot />, roles: ['user'] },
-  { key: 'notifications', label: 'Notifications', path: '/notifications', icon: <MdNotificationsNone />, roles: ['user'] },
+
   { key: 'intelligence', label: 'Swarm Intelligence', path: '/intelligence', icon: <HiCpuChip />, roles: ['admin'] },
   { key: 'analytics', label: 'Analytics', path: '/analytics', icon: <HiChartBarSquare />, roles: ['admin', 'manager'] },
   { key: 'fleet', label: 'Fleet Management', path: '/fleet', icon: <GiDeliveryDrone />, roles: ['admin'] },
   { key: 'security', label: 'Security & Blockchain', path: '/security', icon: <FaLock />, roles: ['admin', 'manager'] },
-  { key: 'optimization', label: 'Swarm Optimization', path: '/optimization', icon: <FaRoute />, roles: ['admin', 'manager'] },
-  { key: 'interactive', label: 'Interactive Features', path: '/interactive', icon: <FaMicrophone />, roles: ['admin', 'manager'] },
+  { key: 'optimization', label: 'Swarm Optimization', path: '/optimization', icon: <FaRoute />, roles: ['manager'] },
+  { key: 'interactive', label: 'Interactive Features', path: '/interactive', icon: <FaMicrophone />, roles: ['manager'] },
 ]
 
 function Sidebar({ onNavigate }) {

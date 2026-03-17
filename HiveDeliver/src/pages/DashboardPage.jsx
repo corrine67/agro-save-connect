@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Grid, Stack, Typography, Box } from '@mui/material'
-import { FaBoxesStacked, FaClock } from 'react-icons/fa6'
+import { FaBoxesStacked, FaClock, FaWeightHanging } from 'react-icons/fa6'
 import { HiCheckBadge } from 'react-icons/hi2'
 import { GiDeliveryDrone } from 'react-icons/gi'
 import MetricCard from '../components/MetricCard.jsx'
@@ -15,7 +15,7 @@ const metricIcons = [
   <FaBoxesStacked key="deliveries" />,
   <GiDeliveryDrone key="drones" />,
   <HiCheckBadge key="done" />,
-  <FaClock key="avg" />,
+  <FaWeightHanging key="weight" />,
 ]
 
 function nudge(value, max, min = 0) {
@@ -26,11 +26,14 @@ function nudge(value, max, min = 0) {
 function DashboardPage() {
   const { t } = useTranslation()
 
+  // Calculate total weight of all parcels
+  const totalWeight = deliveries.reduce((sum, delivery) => sum + (delivery.weight || 0), 0)
+
   const initialMetrics = [
     { labelKey: 'dashboard.activeDeliveries', value: 24, trendKey: 'dashboard.vsYesterday' },
     { labelKey: 'dashboard.dronesAvailable', value: 17, trendKey: 'dashboard.charging' },
     { labelKey: 'dashboard.completedToday', value: 186, trendKey: 'dashboard.plusToday' },
-    { labelKey: 'dashboard.avgDeliveryTime', value: '14 min', trendKey: 'dashboard.minImprovement' },
+    { labelKey: 'dashboard.totalParcelWeight', value: `${totalWeight.toFixed(1)} kg`, trendKey: 'dashboard.heavyParcels' },
   ]
 
   const [metrics, setMetrics] = useState(initialMetrics)

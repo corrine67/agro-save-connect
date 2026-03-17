@@ -93,12 +93,15 @@
     "dronesAvailable": "Drones Available",
     "completedToday": "Completed Deliveries Today",
     "avgDeliveryTime": "Average Delivery Time",
+    "totalParcelWeight": "Total Parcel Weight",
     "vsYesterday": "+8% vs yesterday",
     "charging": "3 charging",
     "plusToday": "+14 today",
     "minImprovement": "-2 min improvement",
+    "heavyParcels": "4 heavy parcels (>25kg)",
     "parcelId": "Parcel ID",
     "destination": "Destination",
+    "weight": "Weight",
     "assignedDrone": "Assigned Drone",
     "status": "Status",
     "delivering": "Delivering",
@@ -230,7 +233,7 @@
     "noDronesAvailable": "No idle drones are currently available. Please try again in a few minutes.",
     "droneAssigned": "Drone {{droneId}} assigned. Estimated delivery time: {{eta}} minutes.",
     "swarmAssigned": "AI Swarm engaged! Drones {{drone1}} & {{drone2}} cooperating for heavy delivery. ETA: {{eta}} minutes.",
-    "heavyWeightAlert": "Heavy parcel detected (>5kg). Activating Swarm Intelligence for cooperative delivery."
+    "heavyWeightAlert": "Heavy parcel detected (>25kg). Activating Swarm Intelligence for cooperative delivery."
   },
   "history": {
     "title": "Delivery History",
@@ -342,6 +345,21 @@
     "idle": "Idle",
     "delivering": "Delivering",
     "charging": "Charging"
+  },
+  "addresses": {
+    "title": "SAVED ADDRESSES",
+    "subtitle": "Manage your delivery addresses for faster checkout and accurate deliveries.",
+    "totalSaved": "{{count}} Saved Addresses",
+    "addNew": "Add New Address",
+    "addAddress": "Add New Address",
+    "editAddress": "Edit Address",
+    "cancel": "Cancel",
+    "saveAddress": "Save Address",
+    "saveChanges": "Save Changes",
+    "addressLabel": "Address Label",
+    "contactName": "Contact Name",
+    "contactPhone": "Phone Number",
+    "fullAddress": "Full Address"
   },
   "chatbot": {
     "greeting": "Hello! How can I help you today?",

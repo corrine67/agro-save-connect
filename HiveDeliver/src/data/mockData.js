@@ -6,16 +6,16 @@ export const keyMetrics = [
 ]
 
 export const deliveries = [
-  { parcelId: 'HD-4101', destination: 'SME Hub - Downtown', assignedDrone: 'H1', status: 'Delivering' },
-  { parcelId: 'HD-4102', destination: 'Tech Park Unit 7', assignedDrone: 'H3', status: 'Waiting' },
-  { parcelId: 'HD-4103', destination: 'Riverside Retail Block', assignedDrone: 'H5', status: 'Delivered' },
-  { parcelId: 'HD-4104', destination: 'Market Street Kiosk', assignedDrone: 'H2', status: 'Delivering' },
-  { parcelId: 'HD-4105', destination: 'Old Town Distribution', assignedDrone: 'H8', status: 'Delivered' },
-  { parcelId: 'HD-4106', destination: 'North SME Cluster', assignedDrone: 'H4', status: 'Waiting' },
-  { parcelId: 'HD-4107', destination: 'Harbor Light Shops', assignedDrone: 'H6', status: 'Delivering' },
-  { parcelId: 'HD-4108', destination: 'Innovation Quarter', assignedDrone: 'H7', status: 'Delivered' },
-  { parcelId: 'HD-4109', destination: 'City Mall Annex', assignedDrone: 'H9', status: 'Waiting' },
-  { parcelId: 'HD-4110', destination: 'Canal Point SMEs', assignedDrone: 'H10', status: 'Delivering' },
+  { parcelId: 'HD-4101', destination: 'SME Hub - Downtown', assignedDrone: 'H1', status: 'Delivering', weight: 2.5 },
+  { parcelId: 'HD-4102', destination: 'Tech Park Unit 7', assignedDrone: 'H3', status: 'Waiting', weight: 1.8 },
+  { parcelId: 'HD-4103', destination: 'Riverside Retail Block', assignedDrone: 'H5', status: 'Delivered', weight: 3.2 },
+  { parcelId: 'HD-4104', destination: 'Market Street Kiosk', assignedDrone: 'H2', status: 'Delivering', weight: 4.1 },
+  { parcelId: 'HD-4105', destination: 'Old Town Distribution', assignedDrone: 'H8', status: 'Delivered', weight: 28.5 }, // Heavy parcel - 2 drones
+  { parcelId: 'HD-4106', destination: 'North SME Cluster', assignedDrone: 'H4 & H9', status: 'Waiting', weight: 32.0 }, // Heavy parcel - 2 drones
+  { parcelId: 'HD-4107', destination: 'Harbor Light Shops', assignedDrone: 'H6', status: 'Delivering', weight: 1.2 },
+  { parcelId: 'HD-4108', destination: 'Innovation Quarter', assignedDrone: 'H7', status: 'Delivered', weight: 26.8 }, // Heavy parcel - 2 drones
+  { parcelId: 'HD-4109', destination: 'City Mall Annex', assignedDrone: 'H10 & H11', status: 'Waiting', weight: 45.2 }, // Heavy parcel - 2 drones
+  { parcelId: 'HD-4110', destination: 'Canal Point SMEs', assignedDrone: 'H12', status: 'Delivering', weight: 5.7 },
 ]
 
 export const drones = [

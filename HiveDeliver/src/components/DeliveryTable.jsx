@@ -26,6 +26,7 @@ function DeliveryTable({ rows }) {
           <TableRow>
             <TableCell>{t('dashboard.parcelId')}</TableCell>
             <TableCell>{t('dashboard.destination')}</TableCell>
+            <TableCell>{t('dashboard.weight')}</TableCell>
             <TableCell>{t('dashboard.assignedDrone')}</TableCell>
             <TableCell align="right">{t('dashboard.status')}</TableCell>
           </TableRow>
@@ -58,11 +59,28 @@ function DeliveryTable({ rows }) {
                   sx={{
                     display: 'inline-flex',
                     alignItems: 'center',
+                    px: 1,
+                    py: 0.3,
+                    borderRadius: 1,
+                    bgcolor: row.weight > 25 ? 'rgba(59,130,246,0.1)' : 'rgba(34,197,94,0.1)',
+                    border: `1px solid ${row.weight > 25 ? 'rgba(59,130,246,0.3)' : 'rgba(34,197,94,0.3)'}`,
+                  }}
+                >
+                  <Typography variant="body2" sx={{ fontWeight: 600, fontSize: '0.82rem' }}>
+                    {row.weight}kg
+                  </Typography>
+                </Box>
+              </TableCell>
+              <TableCell>
+                <Box
+                  sx={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
                     px: 1.2,
                     py: 0.3,
                     borderRadius: 2,
-                    bgcolor: 'rgba(14,165,233,0.06)',
-                    border: '1px solid rgba(14,165,233,0.1)',
+                    bgcolor: row.weight > 25 ? 'rgba(59,130,246,0.08)' : 'rgba(14,165,233,0.06)',
+                    border: `1px solid ${row.weight > 25 ? 'rgba(59,130,246,0.2)' : 'rgba(14,165,233,0.1)'}`,
                   }}
                 >
                   <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '0.82rem' }}>
