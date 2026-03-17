@@ -16,6 +16,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import AuthLayout from '../components/AuthLayout.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import { useAuth } from '../contexts/AuthContext.jsx'
@@ -23,7 +24,7 @@ import { useAuth } from '../contexts/AuthContext.jsx'
 export default function RegisterPage() {
   const { register, user, defaultRoute } = useAuth()
   const navigate = useNavigate()
-
+  const { t } = useTranslation()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
@@ -40,12 +41,10 @@ export default function RegisterPage() {
   const handleSubmit = async (event) => {
     event.preventDefault()
     setError(null)
-
     if (password !== confirmPassword) {
-      setError('Passwords do not match.')
+      setError(t('register.passwordMismatch'))
       return
     }
-
     setLoading(true)
     try {
       await register({ email, password, role })
@@ -56,7 +55,7 @@ export default function RegisterPage() {
         },
       })
     } catch (err) {
-      setError(err.message ?? 'Unable to create an account.')
+      setError(err.message ?? t('register.errorCreate'))
     } finally {
       setLoading(false)
     }
@@ -66,19 +65,17 @@ export default function RegisterPage() {
     <AuthLayout>
       <Stack spacing={2}>
         <PageHeader
-          title="Create your HiveDeliver account"
-          subtitle="Register to manage deliveries and view live drone activity."
+          title={t('register.title')}
+          subtitle={t('register.subtitle')}
         />
-
         <Card className="hover-lift">
           <CardContent>
             <Stack spacing={2}>
               {error && <Alert severity="error">{error}</Alert>}
-
               <Box component="form" onSubmit={handleSubmit} noValidate>
                 <Stack spacing={2}>
                   <TextField
-                    label="Email"
+                    label={t('login.email')}
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -86,22 +83,21 @@ export default function RegisterPage() {
                     autoFocus
                   />
                   <TextField
-                    label="Password"
+                    label={t('login.password')}
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
                   />
                   <TextField
-                    label="Confirm password"
+                    label={t('register.confirmPassword')}
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
                   />
-
                   <FormControl>
-                    <FormLabel>Role</FormLabel>
+                    <FormLabel>{t('register.role')}</FormLabel>
                     <RadioGroup
                       row
                       value={role}
@@ -110,27 +106,25 @@ export default function RegisterPage() {
                       <FormControlLabel
                         value="user"
                         control={<Radio />}
-                        label="SME (End user)"
+                        label={t('register.roleSME')}
                       />
                       <FormControlLabel
                         value="manager"
                         control={<Radio />}
-                        label="Manager"
+                        label={t('register.roleManager')}
                       />
                     </RadioGroup>
                   </FormControl>
-
                   <Button type="submit" variant="contained" size="large" disabled={loading}>
-                    {loading ? 'Creating account…' : 'Create account'}
+                    {loading ? t('register.creating') : t('register.createAccount')}
                   </Button>
                 </Stack>
               </Box>
-
               <FormControl sx={{ mt: 1 }}>
                 <Typography variant="body2" color="text.secondary">
-                  Already have an account?{' '}
+                  {t('register.haveAccount')}{' '}
                   <Link component={RouterLink} to="/login">
-                    Sign in here
+                    {t('register.signInHere')}
                   </Link>
                   .
                 </Typography>
