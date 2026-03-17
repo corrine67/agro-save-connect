@@ -24,34 +24,84 @@ const quickActionKeys = [
   'customerSupport',
   'reportIssue',
   'orderModification',
+  'operatingHours',
+  'maxWeight',
+  'cancelOrder',
 ];
 
 function getBotResponse(userMsg, t) {
   const msg = userMsg.toLowerCase();
-  if (msg.includes('where is my parcel') || msg.includes('parcel status') || msg.includes('di mana') || msg.includes('bungkusan')) {
+
+  // Parcel tracking / status
+  if (msg.includes('where is my parcel') || msg.includes('parcel status') || msg.includes('track') || msg.includes('locate') ||
+      msg.includes('di mana') || msg.includes('bungkusan') || msg.includes('penjejakan') ||
+      msg.includes('என் பார்சல்') || msg.includes('கண்காணி') || msg.includes('我的包裹')) {
     return t('chatbot.responseParcelStatus');
   }
-  if (msg.includes('send a parcel') || msg.includes('create delivery order') || msg.includes('hantar') || msg.includes('pesanan')) {
+
+  // Create order
+  if (msg.includes('send a parcel') || msg.includes('create delivery') || msg.includes('create order') || msg.includes('new order') || msg.includes('place order') ||
+      msg.includes('hantar') || msg.includes('pesanan') || msg.includes('cipta pesanan') ||
+      msg.includes('ஆர்டர் உருவாக்கு') || msg.includes('பார்சல் அனுப்பு') || msg.includes('创建') || msg.includes('寄送')) {
     return t('chatbot.responseCreateOrder');
   }
-  if (msg.includes('drones available') || msg.includes('dron tersedia') || msg.includes('tersedia')) {
+
+  // Drone availability
+  if (msg.includes('drone available') || msg.includes('drones available') || msg.includes('available drone') || msg.includes('standby') ||
+      msg.includes('dron tersedia') || msg.includes('tersedia') ||
+      msg.includes('ட்ரோன் கிடைக்கு') || msg.includes('无人机可用') || msg.includes('有无人机')) {
     return t('chatbot.responseDroneAvailable');
   }
-  if (msg.includes('how much to deliver') || msg.includes('cost') || msg.includes('berapa') || msg.includes('kos')) {
+
+  // Cost / pricing
+  if (msg.includes('how much') || msg.includes('cost') || msg.includes('price') || msg.includes('fee') || msg.includes('rate') || msg.includes('charge') ||
+      msg.includes('berapa') || msg.includes('kos') || msg.includes('harga') || msg.includes('bayaran') ||
+      msg.includes('எவ்வளவு') || msg.includes('கட்டணம்') || msg.includes('多少钱') || msg.includes('费用') || msg.includes('价格')) {
     return t('chatbot.responseCost');
   }
-  if (msg.includes('how does drone delivery work') || msg.includes('bagaimana') || msg.includes('kerja')) {
+
+  // Operating hours
+  if (msg.includes('operating hours') || msg.includes('opening hours') || msg.includes('business hours') || msg.includes('when are you open') || msg.includes('what time') ||
+      msg.includes('waktu operasi') || msg.includes('waktu buka') || msg.includes('jam berapa') ||
+      msg.includes('இயக்க நேரம்') || msg.includes('திறந்திருக்கும்') || msg.includes('营业时间') || msg.includes('几点')) {
+    return t('chatbot.responseOperatingHours');
+  }
+
+  // Max weight / weight limit
+  if (msg.includes('maximum weight') || msg.includes('max weight') || msg.includes('weight limit') || msg.includes('heavy parcel') || msg.includes('parcel weight') || msg.includes('how heavy') ||
+      msg.includes('berat bungkusan') || msg.includes('had berat') ||
+      msg.includes('அதிகபட்ச எடை') || msg.includes('பொதி எடை') || msg.includes('最大重量') || msg.includes('包裹重量')) {
+    return t('chatbot.responseMaxWeight');
+  }
+
+  // How it works
+  if (msg.includes('how does') || msg.includes('how it works') || msg.includes('explain') || msg.includes('tell me about') ||
+      msg.includes('bagaimana') || msg.includes('cara kerja') ||
+      msg.includes('எப்படி வேலை') || msg.includes('என்னவென்று') || msg.includes('如何运作') || msg.includes('怎么工作')) {
     return t('chatbot.responseHowItWorks');
   }
-  if (msg.includes("hasn't arrived") || msg.includes('delayed') || msg.includes('belum sampai') || msg.includes('lewat')) {
+
+  // Delayed / not arrived
+  if (msg.includes("hasn't arrived") || msg.includes('not arrived') || msg.includes('delayed') || msg.includes('late') || msg.includes('still waiting') || msg.includes('missing parcel') ||
+      msg.includes('belum sampai') || msg.includes('lewat') || msg.includes('lambat') ||
+      msg.includes('இன்னும் வரவில்லை') || msg.includes('தாமதம்') || msg.includes('还没到') || msg.includes('迟到')) {
     return t('chatbot.responseDelayed');
   }
-  if (msg.includes('change the delivery address') || msg.includes('update address') || msg.includes('tukar alamat')) {
+
+  // Change address
+  if ((msg.includes('change') || msg.includes('update') || msg.includes('modify')) && (msg.includes('address') || msg.includes('location') || msg.includes('destination')) ||
+      msg.includes('tukar alamat') || msg.includes('update address') || msg.includes('new address') ||
+      msg.includes('முகவரி மாற்று') || msg.includes('更改地址') || msg.includes('修改地址')) {
     return t('chatbot.responseAddressUpdated');
   }
-  if (msg.includes('cancel order') || msg.includes('batal')) {
+
+  // Cancel order
+  if (msg.includes('cancel') || msg.includes('terminate order') || msg.includes('stop order') || msg.includes('undo order') ||
+      msg.includes('batal') || msg.includes('batalkan') ||
+      msg.includes('ரத்து') || msg.includes('取消')) {
     return t('chatbot.responseCancelled');
   }
+
   return t('chatbot.responseDefault');
 }
 

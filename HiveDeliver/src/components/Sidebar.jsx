@@ -30,7 +30,7 @@ const allNavItems = [
     label: "Home",
     path: "/home",
     icon: <FaHouse />,
-    roles: ["admin", "manager"],
+    roles: ["admin"],
   },
   {
     key: "dashboard",
@@ -112,7 +112,7 @@ function Sidebar({ onNavigate }) {
 
   const handleLogout = () => {
     logout();
-    navigate("/login", { replace: true });
+    navigate("/", { replace: true });
   };
 
   // Filter nav items based on user role
@@ -211,7 +211,7 @@ function Sidebar({ onNavigate }) {
         onClick={handleLogout}
         sx={{ fontWeight: 600 }}
       >
-        Logout
+        {t('nav.logout')}
       </Button>
     </Box>
   );

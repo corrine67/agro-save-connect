@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react'
 import { useTranslation } from 'react-i18next'
+import { useTheme } from '@mui/material/styles'
 import { Box, Card, CardContent, Chip, Grid, Stack, Typography } from '@mui/material'
 import { FaCloudRain, FaLocationDot, FaMountainSun, FaWarehouse, FaNetworkWired } from 'react-icons/fa6'
 import { GiDeliveryDrone } from 'react-icons/gi'
@@ -13,9 +14,13 @@ import { useAuth } from '../contexts/AuthContext.jsx'
 
 function LiveMapPage() {
   const { t } = useTranslation()
+  const theme = useTheme()
+  const isDark = theme.palette.mode === 'dark'
   const { user } = useAuth()
   const userRole = user?.role || 'user'
   const isSME = userRole === 'user'
+  const isManager = userRole === 'manager'
+  const desktopSidebarHeight = 'calc(clamp(680px, 78vh, 820px) + 72px)'
   const [isRunning, setIsRunning] = useState(true)
   const [droneCount, setDroneCount] = useState(isSME ? 2 : 8)
   const [speed, setSpeed] = useState(1)
@@ -85,13 +90,19 @@ function LiveMapPage() {
 
         {/* Right Sidebar */}
         <Grid size={{ xs: 12, lg: 4 }} sx={{ display: 'flex' }}>
-          <Stack spacing={1.2} sx={{ width: '100%', height: '100%' }}>
+          <Stack
+            spacing={isManager ? 1 : (isSME ? 1 : 1.2)}
+            sx={{
+              width: '100%',
+              height: { xs: 'auto', lg: isManager || isSME ? desktopSidebarHeight : '100%' },
+            }}
+          >
             {/* Swarm Alerts - Hidden for SME */}
             {!isSME && (
-              <Box className="reveal-up delay-2" sx={{ flex: 1.08, minHeight: 0 }}>
+              <Box className="reveal-up delay-2" sx={{ flex: isManager ? 1.08 : 1.08, minHeight: 0 }}>
                 <Card className="hover-lift glow-card" sx={{ borderRadius: 3, height: '100%' }}>
-                  <CardContent sx={{ p: 1.8, height: '100%', overflow: 'auto' }}>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 800, mb: 1 }}>
+                  <CardContent sx={{ p: isManager ? 1.4 : 1.8, height: '100%', overflow: 'auto' }}>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 800, mb: isManager ? 0.8 : 1 }}>
                       {t('map.swarmAdjustment')}
                     </Typography>
                     <SwarmAlertPanel alerts={swarmAlerts} placement="sidebar" />
@@ -101,17 +112,17 @@ function LiveMapPage() {
             )}
 
             {/* Map Legend */}
-            <Box className="reveal-up delay-3" sx={{ flex: isSME ? 1.2 : 0.5, minHeight: 0 }}>
+            <Box className="reveal-up delay-3" sx={{ flex: isManager ? 1 : (isSME ? 1.1 : 0.5), minHeight: 0 }}>
               <Card className="hover-lift glow-card" sx={{ borderRadius: 2, height: '100%', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                <CardContent sx={{ p: 1.5, height: '100%', overflow: 'auto' }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5, color: 'black' }}>
+                <CardContent sx={{ p: isManager ? 1.2 : (isSME ? 1.3 : 1.5), height: '100%', overflow: 'auto' }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: isManager ? 1 : (isSME ? 1.15 : 1.5), color: isDark ? 'text.primary' : 'black' }}>
                     {t('map.mapLegend')}
                   </Typography>
                   <Box
                     sx={{
                       display: 'grid',
-                      gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: '1fr' },
-                      gap: 1,
+                      gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', lg: isManager ? '1fr 1fr' : '1fr' },
+                      gap: isManager ? 0.7 : (isSME ? 0.85 : 1),
                     }}
                   >
                     {[
@@ -129,7 +140,7 @@ function LiveMapPage() {
                         sx={{
                           display: 'flex',
                           alignItems: 'center',
-                          p: 0.8,
+                          p: isManager ? 0.65 : (isSME ? 0.72 : 0.8),
                           borderRadius: 1.5,
                           bgcolor: 'background.paper',
                           border: '1px solid',
@@ -147,22 +158,22 @@ function LiveMapPage() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            width: 32,
-                            height: 32,
+                            width: isManager ? 28 : 32,
+                            height: isManager ? 28 : 32,
                             borderRadius: 1,
-                            mr: 1,
+                            mr: isManager ? 0.7 : 1,
                             bgcolor: 'primary.light',
                             color: 'primary.contrastText',
                           }}
                         >
                           <span
                             className={`legend-icon ${item.className}`}
-                            style={{ width: 20, height: 20, borderRadius: 4, fontSize: 12 }}
+                            style={{ width: isManager ? 17 : 20, height: isManager ? 17 : 20, borderRadius: 4, fontSize: isManager ? 10 : 12 }}
                           >
                             {item.icon}
                           </span>
                         </Box>
-                        <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: 1.3 }}>
+                        <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: isManager ? 1.2 : 1.3, fontSize: isManager ? '0.78rem' : '0.875rem' }}>
                           {item.label}
                         </Typography>
                       </Box>
@@ -186,13 +197,13 @@ function LiveMapPage() {
             </Box>
 
             {/* Priority Info */}
-            <Box className="reveal-up delay-4" sx={{ flex: isSME ? 0.9 : 0.42, minHeight: 0 }}>
+            <Box className="reveal-up delay-4" sx={{ flex: isManager ? 0.84 : (isSME ? 0.82 : 0.42), minHeight: 0 }}>
               <Card className="hover-lift glow-card" sx={{ borderRadius: 2, height: '100%', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                <CardContent sx={{ p: 1.5, height: '100%', overflow: 'auto' }}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5, color: 'black' }}>
+                <CardContent sx={{ p: isManager ? 1.2 : (isSME ? 1.3 : 1.5), height: '100%', overflow: 'auto' }}>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: isManager ? 1 : (isSME ? 1.15 : 1.5), color: isDark ? 'text.primary' : 'black' }}>
                     {t('map.priorityLevels')}
                   </Typography>
-                  <Stack spacing={1}>
+                  <Stack spacing={isManager ? 0.75 : (isSME ? 0.85 : 1)}>
                     {[
                       { label: t('map.critical'), color: '#ef4444', desc: t('map.medicalSupplies') },
                       { label: t('map.high'), color: '#f97316', desc: t('map.remoteDeliveries') },
@@ -204,7 +215,7 @@ function LiveMapPage() {
                         sx={{
                           display: 'flex',
                           alignItems: 'center',
-                          p: 1,
+                          p: isManager ? 0.75 : (isSME ? 0.85 : 1),
                           borderRadius: 1.5,
                           bgcolor: 'background.paper',
                           border: '1px solid',
@@ -224,14 +235,14 @@ function LiveMapPage() {
                             bgcolor: p.color,
                             color: '#fff',
                             fontWeight: 800,
-                            fontSize: '0.7rem',
+                            fontSize: isManager ? '0.64rem' : '0.7rem',
                             letterSpacing: '0.05em',
-                            minWidth: 60,
-                            height: 24,
-                            mr: 1,
+                            minWidth: isManager ? 52 : 60,
+                            height: isManager ? 21 : 24,
+                            mr: isManager ? 0.75 : 1,
                           }}
                         />
-                        <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: 1.3, flex: 1 }}>
+                        <Typography variant="body2" sx={{ fontWeight: 500, lineHeight: isManager ? 1.2 : 1.3, flex: 1, fontSize: isManager ? '0.78rem' : '0.875rem' }}>
                           {p.desc}
                         </Typography>
                       </Box>
@@ -243,13 +254,13 @@ function LiveMapPage() {
 
             {/* Delivery ETA - For SME */}
             {isSME && (
-              <Box className="reveal-up delay-5" sx={{ flex: 0.9, minHeight: 0 }}>
+              <Box className="reveal-up delay-5" sx={{ flex: 0.82, minHeight: 0 }}>
                 <Card className="hover-lift glow-card" sx={{ borderRadius: 2, height: '100%', boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }}>
-                  <CardContent sx={{ p: 1.5, height: '100%', overflow: 'auto' }}>
-                    <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5, color: 'black' }}>
-                      Delivery ETA
+                  <CardContent sx={{ p: 1.3, height: '100%', overflow: 'auto' }}>
+                    <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1.5, color: isDark ? 'text.primary' : 'black' }}>
+                      {t('map.deliveryEta')}
                     </Typography>
-                    <Stack spacing={1}>
+                    <Stack spacing={0.85}>
                       {dronePositions.slice(0, 2).map((drone) => (
                         <Box
                           key={drone.droneId}
@@ -257,7 +268,7 @@ function LiveMapPage() {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'space-between',
-                            p: 1,
+                            p: 0.85,
                             borderRadius: 1.5,
                             bgcolor: 'background.paper',
                             border: '1px solid',
@@ -271,10 +282,10 @@ function LiveMapPage() {
                           }}
                         >
                           <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                            Parcel {drone.droneId}
+                            {t('map.parcel')} {drone.droneId}
                           </Typography>
-                          <Typography variant="body2" sx={{ fontWeight: 700, color: 'black' }}>
-                            {drone.eta} min
+                          <Typography variant="body2" sx={{ fontWeight: 700, color: isDark ? 'text.primary' : 'black' }}>
+                            {drone.eta} {t('map.minShort')}
                           </Typography>
                         </Box>
                       ))}

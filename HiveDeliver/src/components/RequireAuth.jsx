@@ -6,7 +6,7 @@ export default function RequireAuth({ allowedRoles, children } = {}) {
   const location = useLocation()
 
   if (!user) {
-    return <Navigate to="/login" state={{ from: location }} replace />
+    return <Navigate to="/" state={{ from: location }} replace />
   }
 
   if (Array.isArray(allowedRoles) && allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {

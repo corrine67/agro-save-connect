@@ -53,7 +53,6 @@ export default function RegisterPage() {
         replace: true,
         state: {
           registrationSuccess: true,
-          registeredEmail: email,
         },
       })
     } catch (err) {

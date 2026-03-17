@@ -26,7 +26,7 @@ import { environmentalImpactData } from '../data/operationsData.js'
 
 const utilizationColors = ['#0ea5e9', '#14b8a6', '#f97316']
 
-const CustomTooltip = ({ active, payload, label }) => {
+const CustomTooltip = ({ active, payload, label, nameMap, labelMap }) => {
   if (!active || !payload?.length) return null
   return (
     <Box
@@ -41,11 +41,11 @@ const CustomTooltip = ({ active, payload, label }) => {
       }}
     >
       <Typography variant="caption" sx={{ fontWeight: 700, display: 'block', mb: 0.3 }}>
-        {label}
+        {labelMap?.[label] ?? label}
       </Typography>
       {payload.map((entry, i) => (
         <Typography key={i} variant="caption" sx={{ display: 'block', color: entry.color }}>
-          {entry.name}: <strong>{entry.value}</strong>
+          {nameMap?.[entry.name] ?? entry.name}: <strong>{entry.value}</strong>
         </Typography>
       ))}
     </Box>
@@ -60,6 +60,16 @@ function AnalyticsPage() {
     Delivering: t('analytics.delivering'),
     Idle: t('analytics.idle'),
     Charging: t('analytics.charging'),
+  }
+
+  const dayMap = {
+    Mon: t('analytics.mon'),
+    Tue: t('analytics.tue'),
+    Wed: t('analytics.wed'),
+    Thu: t('analytics.thu'),
+    Fri: t('analytics.fri'),
+    Sat: t('analytics.sat'),
+    Sun: t('analytics.sun'),
   }
 
   return (
@@ -101,10 +111,10 @@ function AnalyticsPage() {
                       </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" />
-                    <XAxis dataKey="day" tick={{ fontSize: 12, fontWeight: 600 }} />
+                    <XAxis dataKey="day" tick={{ fontSize: 12, fontWeight: 600 }} tickFormatter={(v) => dayMap[v] ?? v} />
                     <YAxis tick={{ fontSize: 12 }} />
-                    <Tooltip content={<CustomTooltip />} />
-                    <Bar dataKey="deliveries" fill="url(#barGrad)" radius={[8, 8, 0, 0]} />
+                    <Tooltip content={<CustomTooltip labelMap={dayMap} />} />
+                    <Bar dataKey="deliveries" name={t('analytics.deliveries')} fill="url(#barGrad)" radius={[8, 8, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </CardContent>
@@ -164,7 +174,7 @@ function AnalyticsPage() {
                         />
                       ))}
                     </Pie>
-                    <Tooltip content={<CustomTooltip />} />
+                    <Tooltip content={<CustomTooltip nameMap={utilizationNameMap} />} />
                     <Legend
                       formatter={(value) => (
                         <span style={{ fontWeight: 600, fontSize: '0.8rem' }}>
@@ -214,6 +224,7 @@ function AnalyticsPage() {
                     <Area
                       type="monotone"
                       dataKey="minutes"
+                      name={t('analytics.minutes')}
                       stroke="#f97316"
                       strokeWidth={3}
                       fill="url(#areaGrad)"

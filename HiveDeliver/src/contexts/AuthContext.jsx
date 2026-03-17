@@ -46,7 +46,7 @@ export function AuthProvider({ children }) {
       login,
       logout,
       register,
-      defaultRoute: user ? getDefaultRouteForRole(user.role) : '/login',
+      defaultRoute: user ? getDefaultRouteForRole(user.role) : '/',
     }),
     [user],
   )

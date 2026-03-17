@@ -1,5 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@mui/material/styles";
+import QRCode from 'qrcode'
 import {
   Box,
   Card,
@@ -30,15 +32,44 @@ const statusPalette = {
 
 // Placeholder Google Form URL - user can replace this
 const FEEDBACK_FORM_URL = "https://forms.gle/placeholder";
-// Simple QR code placeholder data URL
-const qrCodeUrl = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'%3E%3Crect fill='%23fff' width='200' height='200'/%3E%3Crect fill='%23000' x='20' y='20' width='40' height='40'/%3E%3Crect fill='%23000' x='140' y='20' width='40' height='40'/%3E%3Crect fill='%23000' x='20' y='140' width='40' height='40'/%3E%3C/svg%3E";
 
 function DeliveryHistory() {
   const { t } = useTranslation()
+  const theme = useTheme()
+  const isDark = theme.palette.mode === 'dark'
   const { user } = useAuth()
   const [search, setSearch] = useState('')
   const [status, setStatus] = useState('all')
   const [date, setDate] = useState('')
+  const [qrCodeUrl, setQrCodeUrl] = useState('')
+
+  useEffect(() => {
+    let isMounted = true
+
+    QRCode.toDataURL(FEEDBACK_FORM_URL, {
+      width: 320,
+      margin: 1,
+      errorCorrectionLevel: 'H',
+      color: {
+        dark: '#111827',
+        light: '#ffffff',
+      },
+    })
+      .then((url) => {
+        if (isMounted) {
+          setQrCodeUrl(url)
+        }
+      })
+      .catch(() => {
+        if (isMounted) {
+          setQrCodeUrl('')
+        }
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
 
   const filteredRows = useMemo(() => {
     const normalized = search.trim().toLowerCase()
@@ -204,7 +235,9 @@ function DeliveryHistory() {
               sx={{
                 borderRadius: 3,
                 height: "100%",
-                background: "linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%)",
+                background: isDark 
+                  ? "linear-gradient(135deg, rgba(16,24,40,0.8) 0%, rgba(22,39,44,0.8) 100%)"
+                  : "linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%)",
               }}
             >
               <CardContent
@@ -240,25 +273,42 @@ function DeliveryHistory() {
                 <Box
                   sx={{
                     p: 2,
-                    bgcolor: "#fff",
+                    bgcolor: isDark ? "rgba(255,255,255,0.1)" : "#fff",
                     borderRadius: 3,
-                    boxShadow: "0 4px 12px rgba(0,0,0,0.05)",
+                    boxShadow: isDark ? "0 4px 12px rgba(0,0,0,0.3)" : "0 4px 12px rgba(0,0,0,0.05)",
                     mb: 3,
                     cursor: "pointer",
                     transition: "transform 0.2s",
+                    border: isDark ? "1px solid rgba(20,184,166,0.2)" : "none",
                     "&:hover": { transform: "scale(1.05)" },
                   }}
                   onClick={() => window.open(FEEDBACK_FORM_URL, "_blank")}
                 >
-                  <img
-                    src={qrCodeUrl}
-                    alt="Feedback QR Code"
-                    style={{
-                      width: "160px",
-                      height: "160px",
-                      display: "block",
-                    }}
-                  />
+                  {qrCodeUrl ? (
+                    <img
+                      src={qrCodeUrl}
+                      alt="Feedback QR Code"
+                      style={{
+                        width: "160px",
+                        height: "160px",
+                        display: "block",
+                      }}
+                    />
+                  ) : (
+                    <Box
+                      sx={{
+                        width: 160,
+                        height: 160,
+                        display: 'grid',
+                        placeItems: 'center',
+                        color: 'text.secondary',
+                        fontSize: '0.85rem',
+                        fontWeight: 600,
+                      }}
+                    >
+                      Generating QR...
+                    </Box>
+                  )}
                 </Box>
 
                 <Typography

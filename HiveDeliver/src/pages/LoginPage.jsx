@@ -20,7 +20,6 @@ export default function LoginPage() {
   const { login, user, defaultRoute } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
-  const from = location.state?.from?.pathname || defaultRoute
   const registrationSuccess = Boolean(location.state?.registrationSuccess)
 
   useEffect(() => {
@@ -29,7 +28,7 @@ export default function LoginPage() {
     }
   }, [defaultRoute, navigate, user])
 
-  const [email, setEmail] = useState(location.state?.registeredEmail || '')
+  const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -41,7 +40,6 @@ export default function LoginPage() {
 
     try {
       await login({ email, password })
-      navigate(from, { replace: true })
     } catch (err) {
       setError(err.message ?? 'Unable to sign in. Please check your credentials.')
     } finally {

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useTheme } from "@mui/material/styles";
 import {
   Alert,
   Box,
@@ -29,6 +30,8 @@ const SWARM_WEIGHT_THRESHOLD = 5.0; // kg
 
 function CreateOrderPage() {
   const { t } = useTranslation();
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
   const [form, setForm] = useState({
     customerName: "",
     deliveryAddress: "",
@@ -92,14 +95,14 @@ function CreateOrderPage() {
   const textFieldSx = {
     "& .MuiOutlinedInput-root": {
       borderRadius: 1.5,
-      backgroundColor: "rgba(255, 255, 255, 0.5)",
+      backgroundColor: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.5)",
       transition: "all 0.3s ease",
       "&:hover": {
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(255, 255, 255, 0.8)",
         boxShadow: "0 2px 8px rgba(15,118,110,0.08)",
       },
       "&.Mui-focused": {
-        backgroundColor: "rgba(255, 255, 255, 1)",
+        backgroundColor: isDark ? "rgba(255, 255, 255, 0.15)" : "rgba(255, 255, 255, 1)",
         boxShadow: "0 0 0 2px rgba(20,184,166,0.15)",
       },
     },
@@ -111,16 +114,16 @@ function CreateOrderPage() {
 
   const selectSx = {
     borderRadius: 1.5,
-    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    backgroundColor: isDark ? "rgba(255, 255, 255, 0.08)" : "rgba(255, 255, 255, 0.5)",
     transition: "all 0.3s ease",
     "& .MuiOutlinedInput-root": {
       transition: "all 0.3s ease",
       "&:hover": {
-        backgroundColor: "rgba(255, 255, 255, 0.8)",
+        backgroundColor: isDark ? "rgba(255, 255, 255, 0.12)" : "rgba(255, 255, 255, 0.8)",
         boxShadow: "0 2px 8px rgba(15,118,110,0.08)",
       },
       "&.Mui-focused": {
-        backgroundColor: "rgba(255, 255, 255, 1)",
+        backgroundColor: isDark ? "rgba(255, 255, 255, 0.15)" : "rgba(255, 255, 255, 1)",
         boxShadow: "0 0 0 2px rgba(20,184,166,0.15)",
       },
     },
@@ -137,8 +140,9 @@ function CreateOrderPage() {
           className="hover-lift glow-card"
           sx={{
             borderRadius: 3,
-            background:
-              "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,253,250,0.95) 100%)",
+            background: isDark
+              ? "linear-gradient(135deg, rgba(16,24,40,0.8) 0%, rgba(22,39,44,0.8) 100%)"
+              : "linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(240,253,250,0.95) 100%)",
             backdropFilter: "blur(10px)",
             border: "1px solid rgba(20,184,166,0.1)",
           }}
@@ -153,7 +157,7 @@ function CreateOrderPage() {
                       variant="subtitle2"
                       sx={{
                         fontWeight: 600,
-                        color: "#0f766e",
+                        color: isDark ? "#14b8a6" : "#0f766e",
                         fontSize: "0.85rem",
                       }}
                     >
@@ -161,7 +165,7 @@ function CreateOrderPage() {
                       <span style={{ color: "#ef4444" }}>*</span>
                     </Typography>
                     <TextField
-                      placeholder="Enter customer name"
+                      placeholder={t("order.customerNamePlaceholder")}
                       value={form.customerName}
                       onChange={handleChange("customerName")}
                       fullWidth
@@ -178,7 +182,7 @@ function CreateOrderPage() {
                       variant="subtitle2"
                       sx={{
                         fontWeight: 600,
-                        color: "#0f766e",
+                        color: isDark ? "#14b8a6" : "#0f766e",
                         fontSize: "0.85rem",
                       }}
                     >
@@ -186,7 +190,7 @@ function CreateOrderPage() {
                       <span style={{ color: "#ef4444" }}>*</span>
                     </Typography>
                     <TextField
-                      placeholder="Enter delivery address"
+                      placeholder={t("order.deliveryAddressPlaceholder")}
                       value={form.deliveryAddress}
                       onChange={handleChange("deliveryAddress")}
                       fullWidth
@@ -207,7 +211,7 @@ function CreateOrderPage() {
                       variant="subtitle2"
                       sx={{
                         fontWeight: 600,
-                        color: "#0f766e",
+                        color: isDark ? "#14b8a6" : "#0f766e",
                         fontSize: "0.85rem",
                       }}
                     >
@@ -215,7 +219,7 @@ function CreateOrderPage() {
                       <span style={{ color: "#ef4444" }}>*</span>
                     </Typography>
                     <TextField
-                      placeholder="0.0 kg"
+                      placeholder={t("order.parcelWeightPlaceholder")}
                       type="number"
                       value={form.parcelWeight}
                       onChange={handleChange("parcelWeight")}
@@ -230,7 +234,7 @@ function CreateOrderPage() {
                       <Typography
                         variant="caption"
                         sx={{
-                          color: "#0f766e",
+                          color: isDark ? "#14b8a6" : "#0f766e",
                           fontWeight: 600,
                           display: "flex",
                           alignItems: "center",
@@ -248,7 +252,7 @@ function CreateOrderPage() {
                       variant="subtitle2"
                       sx={{
                         fontWeight: 600,
-                        color: "#0f766e",
+                        color: isDark ? "#14b8a6" : "#0f766e",
                         fontSize: "0.85rem",
                       }}
                     >
@@ -300,10 +304,14 @@ function CreateOrderPage() {
                   background:
                     parseFloat(form.parcelWeight) > SWARM_WEIGHT_THRESHOLD
                       ? "linear-gradient(135deg, #1e40af 0%, #3b82f6 100%)"
+                      : isDark
+                      ? "linear-gradient(135deg, #14b8a6 0%, #06b6d4 100%)"
                       : "linear-gradient(135deg, #0f766e 0%, #14b8a6 100%)",
                   boxShadow:
                     parseFloat(form.parcelWeight) > SWARM_WEIGHT_THRESHOLD
                       ? "0 4px 12px rgba(59,130,246,0.3)"
+                      : isDark
+                      ? "0 4px 12px rgba(20,184,166,0.4)"
                       : "0 4px 12px rgba(15,118,110,0.3)",
                   transition: "all 0.3s ease",
                   marginTop: 1,
@@ -311,10 +319,14 @@ function CreateOrderPage() {
                     background:
                       parseFloat(form.parcelWeight) > SWARM_WEIGHT_THRESHOLD
                         ? "linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%)"
+                        : isDark
+                        ? "linear-gradient(135deg, #0d9488 0%, #06b6d4 100%)"
                         : "linear-gradient(135deg, #115e59 0%, #0f766e 100%)",
                     boxShadow:
                       parseFloat(form.parcelWeight) > SWARM_WEIGHT_THRESHOLD
                         ? "0 6px 20px rgba(59,130,246,0.4)"
+                        : isDark
+                        ? "0 6px 20px rgba(20,184,166,0.5)"
                         : "0 6px 20px rgba(15,118,110,0.4)",
                     transform: "translateY(-2px)",
                   },
