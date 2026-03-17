@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Alert,
   Box,
@@ -94,6 +95,7 @@ const multiStopRoutes = [
 ]
 
 function SwarmOptimizationPage() {
+  const { t } = useTranslation()
   const [selectedHandoff, setSelectedHandoff] = useState(null)
 
   const handleExecuteHandoff = (handoffId) => {
@@ -105,8 +107,8 @@ function SwarmOptimizationPage() {
     <Stack spacing={3}>
       <Box className="reveal-up">
         <PageHeader
-          title="Advanced Swarm Optimization"
-          subtitle="Battery-Aware Handoff and Multi-Stop Route Optimization"
+          title={t('swarm.title')}
+          subtitle={t('swarm.subtitle')}
         />
       </Box>
 
@@ -119,14 +121,14 @@ function SwarmOptimizationPage() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <Box sx={{ color: '#f97316', fontSize: '1.5rem', fontWeight: 'bold' }}>🔋</Box>
                   <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                    Battery-Aware Handoff Status
+                    {t('swarm.batteryHandoffStatus')}
                   </Typography>
                 </Box>
                 <Typography variant="h4" sx={{ fontWeight: 700, color: '#f97316' }}>
                   3
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Active handoff operations
+                  {t('swarm.activeHandoffOps')}
                 </Typography>
               </Stack>
             </CardContent>
@@ -140,14 +142,14 @@ function SwarmOptimizationPage() {
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <FaRoute style={{ color: '#22c55e', fontSize: '1.5rem' }} />
                   <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
-                    Multi-Stop Routes
+                    {t('swarm.multiStopRoutes')}
                   </Typography>
                 </Box>
                 <Typography variant="h4" sx={{ fontWeight: 700, color: '#22c55e' }}>
                   3
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Optimized delivery routes
+                  {t('swarm.optimizedRoutes')}
                 </Typography>
               </Stack>
             </CardContent>
@@ -162,31 +164,31 @@ function SwarmOptimizationPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <Box sx={{ color: '#0f766e', fontSize: '1.3rem', fontWeight: 'bold' }}>↕️</Box>
               <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                Battery-Aware Drone Handoff
+                {t('swarm.batteryHandoffTitle')}
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ color: '#666' }}>
-              When a drone's battery drops below 20% during delivery, a relief drone is automatically dispatched to meet it at a midpoint and take over the parcel. This ensures uninterrupted service and maximizes fleet efficiency.
+              {t('swarm.batteryHandoffDesc')}
             </Typography>
 
             <Alert severity="info">
-              💡 <strong>How it works:</strong> Primary drone continues to delivery point until battery reaches 20%. At that moment, a secondary drone with sufficient battery is dispatched to meet it. The parcel is transferred, and the primary drone returns to base for charging.
+              💡 <strong>{t('swarm.howItWorks')}:</strong> {t('swarm.batteryHandoffHow')}
             </Alert>
 
             <TableContainer>
               <Table size="small">
                 <TableHead>
                   <TableRow sx={{ backgroundColor: 'rgba(15,118,110,0.05)' }}>
-                    <TableCell sx={{ fontWeight: 600 }}>Handoff ID</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Parcel</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Primary Drone</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Battery</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Relief Drone</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Battery</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Handoff Location</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>ETA</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Status</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Action</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colHandoffId')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colParcel')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colPrimaryDrone')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colBattery')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colReliefDrone')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colBattery')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colHandoffLocation')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colEta')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colStatus')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colAction')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -232,7 +234,7 @@ function SwarmOptimizationPage() {
                             onClick={() => handleExecuteHandoff(handoff.id)}
                             sx={{ textTransform: 'none', fontSize: '0.8rem' }}
                           >
-                            {selectedHandoff === handoff.id ? '✓ Executed' : 'Execute'}
+                            {selectedHandoff === handoff.id ? t('swarm.executed') : t('swarm.execute')}
                           </Button>
                         )}
                       </TableCell>
@@ -252,29 +254,29 @@ function SwarmOptimizationPage() {
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <FaRoute style={{ color: '#0f766e', fontSize: '1.3rem' }} />
               <Typography variant="h6" sx={{ fontWeight: 700 }}>
-                Multi-Stop Route Optimization (Milk Run)
+                {t('swarm.multiStopTitle')}
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ color: '#666' }}>
-              Instead of assigning one drone per delivery, the system now bundles multiple small parcels into a single optimized route. Each drone calculates the most efficient path to visit all stops, reducing total flight time and energy consumption.
+              {t('swarm.multiStopDesc')}
             </Typography>
 
             <Alert severity="success">
-              ✓ <strong>Benefits:</strong> Reduced flight time by 15-25%, Lower energy consumption, Fewer drones needed, Faster overall delivery completion
+              ✓ <strong>{t('swarm.benefits')}:</strong> {t('swarm.benefitsDesc')}
             </Alert>
 
             <TableContainer>
               <Table size="small">
                 <TableHead>
                   <TableRow sx={{ backgroundColor: 'rgba(15,118,110,0.05)' }}>
-                    <TableCell sx={{ fontWeight: 600 }}>Route ID</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Drone</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Parcels</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Stops</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Total Distance</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Est. Time</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Route Efficiency</TableCell>
-                    <TableCell sx={{ fontWeight: 600 }}>Status</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colRouteId')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colDrone')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colParcels')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colStops')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colTotalDistance')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colEstTime')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colRouteEfficiency')}</TableCell>
+                    <TableCell sx={{ fontWeight: 600 }}>{t('swarm.colStatus')}</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -337,13 +339,13 @@ function SwarmOptimizationPage() {
             <CardContent>
               <Stack spacing={1}>
                 <Typography variant="caption" sx={{ color: '#666', fontWeight: 600 }}>
-                  Avg. Battery Saved
+                  {t('swarm.avgBatterySaved')}
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: 700, color: '#0f766e' }}>
                   18%
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Per handoff operation
+                  {t('swarm.perHandoffOp')}
                 </Typography>
               </Stack>
             </CardContent>
@@ -355,13 +357,13 @@ function SwarmOptimizationPage() {
             <CardContent>
               <Stack spacing={1}>
                 <Typography variant="caption" sx={{ color: '#666', fontWeight: 600 }}>
-                  Time Reduction
+                  {t('swarm.timeReduction')}
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: 700, color: '#0f766e' }}>
                   20%
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Multi-stop routes
+                  {t('swarm.multiStopRoutes')}
                 </Typography>
               </Stack>
             </CardContent>
@@ -373,13 +375,13 @@ function SwarmOptimizationPage() {
             <CardContent>
               <Stack spacing={1}>
                 <Typography variant="caption" sx={{ color: '#666', fontWeight: 600 }}>
-                  Fleet Efficiency
+                  {t('swarm.fleetEfficiency')}
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: 700, color: '#0f766e' }}>
                   91%
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Overall optimization
+                  {t('swarm.overallOptimization')}
                 </Typography>
               </Stack>
             </CardContent>
@@ -391,13 +393,13 @@ function SwarmOptimizationPage() {
             <CardContent>
               <Stack spacing={1}>
                 <Typography variant="caption" sx={{ color: '#666', fontWeight: 600 }}>
-                  Drones Optimized
+                  {t('swarm.dronesOptimized')}
                 </Typography>
                 <Typography variant="h5" sx={{ fontWeight: 700, color: '#0f766e' }}>
                   6/8
                 </Typography>
                 <Typography variant="caption" sx={{ color: '#666' }}>
-                  Active fleet
+                  {t('swarm.activeFleet')}
                 </Typography>
               </Stack>
             </CardContent>
