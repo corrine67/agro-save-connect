@@ -1,5 +1,4 @@
-import { useMemo, useState } from 'react'
-import { useTranslation } from 'react-i18next'
+import { useState } from 'react'
 import {
   Alert,
   Box,
@@ -95,7 +94,6 @@ const multiStopRoutes = [
 ]
 
 function SwarmOptimizationPage() {
-  const { t } = useTranslation()
   const [selectedHandoff, setSelectedHandoff] = useState(null)
 
   const handleExecuteHandoff = (handoffId) => {
