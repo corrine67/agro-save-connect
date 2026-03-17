@@ -12,6 +12,7 @@ import {
   TextField,
   Typography,
 } from '@mui/material'
+import { useTranslation } from 'react-i18next'
 import AuthLayout from '../components/AuthLayout.jsx'
 import PageHeader from '../components/PageHeader.jsx'
 import { useAuth } from '../contexts/AuthContext.jsx'
@@ -20,6 +21,7 @@ export default function LoginPage() {
   const { login, user, defaultRoute } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
+  const { t } = useTranslation()
   const registrationSuccess = Boolean(location.state?.registrationSuccess)
 
   useEffect(() => {
@@ -41,7 +43,7 @@ export default function LoginPage() {
     try {
       await login({ email, password })
     } catch (err) {
-      setError(err.message ?? 'Unable to sign in. Please check your credentials.')
+      setError(err.message ?? t('login.errorSignIn'))
     } finally {
       setLoading(false)
     }
@@ -51,8 +53,8 @@ export default function LoginPage() {
     <AuthLayout>
       <Stack spacing={2}>
         <PageHeader
-          title="Sign in to HiveDeliver"
-          subtitle="Access your dashboard, create orders, and monitor live drone deliveries."
+          title={t('login.title')}
+          subtitle={t('login.subtitle')}
         />
 
         <Card className="hover-lift">
@@ -60,7 +62,7 @@ export default function LoginPage() {
             <Stack spacing={2}>
               {registrationSuccess && (
                 <Alert severity="success">
-                  Account created successfully. Please sign in with your new credentials.
+                  {t('login.registrationSuccess')}
                 </Alert>
               )}
 
@@ -69,7 +71,7 @@ export default function LoginPage() {
               <Box component="form" onSubmit={handleSubmit} noValidate>
                 <Stack spacing={2}>
                   <TextField
-                    label="Email"
+                    label={t('login.email')}
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -78,7 +80,7 @@ export default function LoginPage() {
                   />
 
                   <TextField
-                    label="Password"
+                    label={t('login.password')}
                     type="password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
@@ -86,16 +88,16 @@ export default function LoginPage() {
                   />
 
                   <Button type="submit" variant="contained" size="large" disabled={loading}>
-                    {loading ? 'Signing in…' : 'Sign in'}
+                    {loading ? t('login.signingIn') : t('login.signIn')}
                   </Button>
                 </Stack>
               </Box>
 
               <FormControl sx={{ mt: 1 }}>
                 <Typography variant="body2" color="text.secondary">
-                  Don’t have an account?{' '}
+                  {t('login.noAccount')}{' '}
                   <Link component={RouterLink} to="/register">
-                    Create one here
+                    {t('login.createOne')}
                   </Link>
                   .
                 </Typography>
