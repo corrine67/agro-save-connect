@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import VoiceCommandPanel from '../components/VoiceCommandPanel.jsx'
 import { useTranslation } from 'react-i18next'
 import {
   Box,
@@ -215,18 +216,7 @@ function DroneFeedCard({ feed, onOpen }) {
 function InteractiveFeaturesPage() {
   const { t } = useTranslation()
   const [selectedFeed, setSelectedFeed] = useState(null)
-  const [isListening, setIsListening] = useState(false)
-  const [voiceDialog, setVoiceDialog] = useState(false)
-  const [voiceInput, setVoiceInput] = useState('')
 
-  const handleStartListening = () => {
-    setIsListening(true)
-    setTimeout(() => {
-      setVoiceInput('Assign Drone H3 to Parcel P102')
-      setIsListening(false)
-      setVoiceDialog(true)
-    }, 2000)
-  }
 
   return (
     <Stack spacing={3}>
@@ -322,113 +312,9 @@ function InteractiveFeaturesPage() {
       </Card>
 
       {/* ── Voice Commands ── */}
-      <Card className="reveal-up delay-3" sx={{ borderRadius: 3, border: '1px solid rgba(15,118,110,0.12)' }}>
+      <Card className="reveal-up delay-3" sx={{ borderRadius: 3, border: '1px solid rgba(168,85,247,0.15)' }}>
         <CardContent>
-          <Stack spacing={2.5}>
-            {/* Section header */}
-            <Stack direction="row" alignItems="center" spacing={1.2}>
-              <Box sx={{ p: 1, borderRadius: 1.5, bgcolor: 'rgba(168,85,247,0.1)' }}>
-                <FaMicrophone style={{ color: '#a855f7', fontSize: '1.1rem' }} />
-              </Box>
-              <Stack>
-                <Typography variant="h6" fontWeight={700}>{t('interactive.voiceCommandsTitle')}</Typography>
-                <Typography variant="caption" color="text.secondary">
-                  {t('interactive.voiceCommandsDesc')}
-                </Typography>
-              </Stack>
-            </Stack>
-
-            {/* Voice button */}
-            <Stack direction="row" spacing={1.5} alignItems="center">
-              <Button
-                variant="contained"
-                onClick={handleStartListening}
-                disabled={isListening}
-                startIcon={<FaMicrophone />}
-                sx={{
-                  background: isListening
-                    ? 'linear-gradient(135deg,#ef4444,#dc2626)'
-                    : 'linear-gradient(135deg,#a855f7,#9333ea)',
-                  textTransform: 'none', fontWeight: 700, borderRadius: 2, px: 3,
-                  boxShadow: isListening ? '0 0 20px rgba(239,68,68,0.4)' : '0 4px 14px rgba(168,85,247,0.3)',
-                  animation: isListening ? 'micPulse 1s infinite' : 'none',
-                  '@keyframes micPulse': { '0%,100%': { transform: 'scale(1)' }, '50%': { transform: 'scale(1.04)' } },
-                }}
-              >
-                {isListening ? t('interactive.listening') : t('interactive.startVoiceCommand')}
-              </Button>
-              {isListening && (
-                <Stack direction="row" alignItems="center" spacing={0.8}>
-                  {[0, 1, 2, 3, 4].map((i) => (
-                    <Box key={i} sx={{
-                      width: 4, borderRadius: 1, bgcolor: '#a855f7',
-                      height: `${12 + Math.random() * 16}px`,
-                      animation: `waveBar${i} 0.6s ease-in-out infinite alternate`,
-                      [`@keyframes waveBar${i}`]: {
-                        from: { height: '6px' }, to: { height: `${14 + i * 4}px` }
-                      },
-                    }} />
-                  ))}
-                  <Typography variant="caption" color="#a855f7" fontWeight={600}>Listening...</Typography>
-                </Stack>
-              )}
-            </Stack>
-
-            {/* Recent commands */}
-            <Stack spacing={0.8}>
-              <Typography variant="subtitle2" fontWeight={700} color="text.secondary" sx={{ textTransform: 'uppercase', letterSpacing: 1, fontSize: '0.7rem' }}>
-                {t('interactive.recentVoiceCommands')}
-              </Typography>
-              {voiceCommandsHistory.map((cmd) => (
-                <Card key={cmd.id} variant="outlined" sx={{
-                  borderRadius: 2,
-                  border: '1px solid rgba(168,85,247,0.15)',
-                  bgcolor: 'rgba(168,85,247,0.03)',
-                  transition: 'all 0.2s',
-                  '&:hover': { borderColor: 'rgba(168,85,247,0.4)', bgcolor: 'rgba(168,85,247,0.06)' },
-                }}>
-                  <CardContent sx={{ py: 1.2, px: 2, '&:last-child': { pb: 1.2 } }}>
-                    <Stack direction="row" justifyContent="space-between" alignItems="center" gap={1}>
-                      <Stack spacing={0.2} sx={{ flex: 1, minWidth: 0 }}>
-                        <Typography variant="body2" fontWeight={600} noWrap>
-                          {cmd.command}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">{cmd.timestamp}</Typography>
-                      </Stack>
-                      <Stack alignItems="flex-end" spacing={0.5} flexShrink={0}>
-                        <Chip
-                          label="Executed"
-                          size="small"
-                          icon={<MdCheckCircle style={{ color: '#22c55e' }} />}
-                          sx={{ bgcolor: 'rgba(34,197,94,0.12)', color: '#22c55e', fontWeight: 700, height: 22, fontSize: '0.68rem' }}
-                        />
-                        <Typography variant="caption" color="text.secondary" fontSize="0.65rem">
-                          {cmd.confidence}% {t('interactive.confidence')}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              ))}
-            </Stack>
-
-            {/* Supported commands */}
-            <Card sx={{ borderRadius: 2, bgcolor: 'rgba(168,85,247,0.04)', border: '1px solid rgba(168,85,247,0.12)' }}>
-              <CardContent sx={{ py: 1.5, '&:last-child': { pb: 1.5 } }}>
-                <Typography variant="caption" fontWeight={700} color="#a855f7" sx={{ display: 'block', mb: 1 }}>
-                  💡 {t('interactive.supportedCommandsLabel')}
-                </Typography>
-                <Stack spacing={0.5}>
-                  {[t('interactive.cmd1'), t('interactive.cmd2'), t('interactive.cmd3'), t('interactive.cmd4'), t('interactive.cmd5')].map((cmd, i) => (
-                    <Stack key={i} direction="row" spacing={1} alignItems="flex-start">
-                      <Box sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: '#a855f7', mt: 0.7, flexShrink: 0 }} />
-                      <Typography variant="caption" color="text.secondary">{cmd}</Typography>
-                    </Stack>
-                  ))}
-                </Stack>
-              </CardContent>
-            </Card>
-          </Stack>
+          <VoiceCommandPanel />
         </CardContent>
       </Card>
 
@@ -449,35 +335,7 @@ function InteractiveFeaturesPage() {
         </DialogContent>
       </Dialog>
 
-      {/* ── Voice Command Dialog ── */}
-      <Dialog open={voiceDialog} onClose={() => setVoiceDialog(false)} maxWidth="sm" fullWidth
-        PaperProps={{ sx: { borderRadius: 3 } }}>
-        <DialogTitle sx={{ fontWeight: 700 }}>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <FaMicrophone style={{ color: '#a855f7' }} />
-            {t('interactive.voiceCommandDetected')}
-          </Stack>
-        </DialogTitle>
-        <DialogContent>
-          <Stack spacing={2} sx={{ mt: 1 }}>
-            <Typography variant="body2" color="text.secondary">{t('interactive.voiceCommandPrompt')}</Typography>
-            <Card variant="outlined" sx={{ borderRadius: 2, bgcolor: 'rgba(59,130,246,0.05)', border: '1px solid rgba(59,130,246,0.2)' }}>
-              <CardContent>
-                <Typography variant="body2" fontWeight={700} color="#3b82f6" fontFamily='"Courier New", monospace'>
-                  &gt; {voiceInput}
-                </Typography>
-              </CardContent>
-            </Card>
-          </Stack>
-        </DialogContent>
-        <Stack direction="row" spacing={1} justifyContent="flex-end" sx={{ px: 3, pb: 2 }}>
-          <Button onClick={() => setVoiceDialog(false)} sx={{ textTransform: 'none' }}>{t('interactive.cancel')}</Button>
-          <Button onClick={() => setVoiceDialog(false)} variant="contained"
-            sx={{ textTransform: 'none', background: 'linear-gradient(135deg,#0f766e,#14b8a6)', fontWeight: 700 }}>
-            {t('interactive.executeCommand')}
-          </Button>
-        </Stack>
-      </Dialog>
+
     </Stack>
   )
 }
