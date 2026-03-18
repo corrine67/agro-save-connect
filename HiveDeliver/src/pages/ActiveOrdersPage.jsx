@@ -7,11 +7,10 @@ import {
 } from '@mui/material'
 import {
   FaClockRotateLeft, FaBatteryFull, FaBatteryHalf, FaBatteryQuarter,
-  FaCircleXmark, FaLocationDot, FaWeightHanging, FaDrone,
+  FaCircleXmark, FaLocationDot, FaWeightHanging,
 } from 'react-icons/fa6'
 import { GiDeliveryDrone } from 'react-icons/gi'
 import { MdOutlineCancel } from 'react-icons/md'
-import PageHeader from '../components/PageHeader.jsx'
 
 // Simulated active orders for the SME user
 const initialActiveOrders = [
@@ -119,11 +118,18 @@ function ActiveOrdersPage() {
 
   return (
     <Box>
-      <PageHeader
-        icon={<FaClockRotateLeft />}
-        titleKey="activeOrders.title"
-        subtitleKey="activeOrders.subtitle"
-      />
+      <Stack spacing={0.5} sx={{ mb: 2 }}>
+        <Stack direction="row" spacing={1} alignItems="center">
+          <FaClockRotateLeft color="#14b8a6" />
+          <Typography variant="h4" sx={{ fontWeight: 800, fontSize: { xs: '1.5rem', md: '1.85rem' } }}>
+            {t('activeOrders.title')}
+          </Typography>
+        </Stack>
+        <Typography variant="body2" color="text.secondary">
+          {t('activeOrders.subtitle')}
+        </Typography>
+        <Box sx={{ borderBottom: '2px solid', borderColor: 'divider', mt: 1 }} />
+      </Stack>
 
       {orders.length === 0 ? (
         <Card sx={{ borderRadius: 3, textAlign: 'center', py: 6 }}>
