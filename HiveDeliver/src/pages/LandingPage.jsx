@@ -127,12 +127,6 @@ function LandingPage() {
           </Stack>
 
           <Stack direction="row" spacing={1} alignItems="center" flexWrap="wrap" useFlexGap>
-            <Button onClick={() => scrollToSection('landing-top')} sx={{ textTransform: 'none', fontWeight: 700 }}>
-              {t('landing.home')}
-            </Button>
-            <Button onClick={() => scrollToSection('landing-features')} sx={{ textTransform: 'none', fontWeight: 700 }}>
-              {t('landing.features')}
-            </Button>
 
             {/* Language Switcher */}
             <Tooltip title={t('common.language')}>
@@ -223,6 +217,14 @@ function LandingPage() {
                 {isDarkMode ? <LightModeOutlinedIcon fontSize="small" /> : <DarkModeOutlinedIcon fontSize="small" />}
               </IconButton>
             </Tooltip>
+
+            <Button onClick={() => scrollToSection('landing-top')} sx={{ textTransform: 'none', fontWeight: 700 }}>
+              {t('landing.home')}
+            </Button>
+            <Button onClick={() => scrollToSection('landing-features')} sx={{ textTransform: 'none', fontWeight: 700 }}>
+              {t('landing.features')}
+            </Button>
+
             {isAuthenticated ? (
               <Button
                 variant="contained"
