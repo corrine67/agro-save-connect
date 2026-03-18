@@ -25,7 +25,9 @@
     "security": "Keselamatan & Blockchain",
     "optimization": "Pengoptimuman Kawanan",
     "interactive": "Ciri Interaktif",
-    "logout": "Daftar Keluar"
+    "logout": "Daftar Keluar",
+    "activeOrders": "Pesanan Aktif",
+    "parcelProof": "Bukti Bungkusan"
   },
   "pageTitles": {
     "home": "Platform HiveDeliver",
@@ -303,7 +305,14 @@
     "time1": "2 minit lalu",
     "time2": "5 minit lalu",
     "time3": "1 jam lalu",
-    "time4": "3 jam lalu"
+    "time4": "3 jam lalu",
+    "tabDelivery": "Notis Penghantaran",
+    "tabSystem": "Sistem",
+    "alert_dispatched": "Bungkusan {{parcel}} telah dihantar melalui Dron {{drone}}.",
+    "alert_inflight": "Dron {{drone}} sedang dalam penerbangan. Jarak ke destinasi: {{distance}}.",
+    "alert_arrived": "Dron {{drone}} telah tiba dengan Bungkusan {{parcel}}.",
+    "alert_delivered": "Bungkusan {{parcel}} berjaya dihantar.",
+    "alert_failed": "Penghantaran gagal untuk Bungkusan {{parcel}}: {{reason}}."
   },
   "weather": {
     "title": "Pemantauan Cuaca",
@@ -594,5 +603,40 @@
     "executed": "Dilaksana",
     "failed": "Gagal",
     "conf": "yakin."
+  },
+  "activeOrders": {
+    "title": "Pesanan Aktif",
+    "subtitle": "Pantau penghantaran yang sedang dihantar dan dalam penerbangan",
+    "noOrders": "Tiada Pesanan Aktif",
+    "noOrdersHint": "Anda tiada penghantaran yang sedang berjalan.",
+    "statusDispatched": "Dihantar",
+    "statusInFlight": "Dalam Penerbangan",
+    "statusLanding": "Mendarat",
+    "statusArrived": "Tiba",
+    "eta": "Jangkaan",
+    "mins": "minit",
+    "arrived": "Tiba",
+    "cancel": "Batal Pesanan",
+    "cancelTitle": "Batal Penghantaran?",
+    "cancelConfirm": "Adakah anda pasti mahu membatalkan pesanan {{id}}? Dron akan kembali ke pangkalan.",
+    "keepOrder": "Kekalkan",
+    "confirmCancel": "Ya, Batal"
+  },
+  "parcelProof": {
+    "title": "Bukti Bungkusan",
+    "subtitle": "Lihat gambar penghantaran, rekod GPS, dan muat turun resit",
+    "all": "Semua",
+    "delivered": "Berjaya",
+    "failed": "Gagal",
+    "proofTitle": "Bukti Penghantaran - {{id}}",
+    "parcelId": "ID Bungkusan",
+    "recipient": "Penerima",
+    "address": "Alamat",
+    "drone": "Dron",
+    "weight": "Berat",
+    "deliveredAt": "Masa",
+    "gps": "GPS",
+    "note": "Nota",
+    "downloadReceipt": "Muat Turun E-Resit (PDF)"
   }
 }

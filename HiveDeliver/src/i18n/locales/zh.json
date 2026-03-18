@@ -25,7 +25,9 @@
     "security": "安全与区块链",
     "optimization": "蜂群优化",
     "interactive": "互动功能",
-    "logout": "登出"
+    "logout": "登出",
+    "activeOrders": "进行中订单",
+    "parcelProof": "送达凭证"
   },
   "pageTitles": {
     "home": "HiveDeliver 平台",
@@ -303,7 +305,14 @@
     "time1": "2 分钟前",
     "time2": "5 分钟前",
     "time3": "1 小时前",
-    "time4": "3 小时前"
+    "time4": "3 小时前",
+    "tabDelivery": "配送提醒",
+    "tabSystem": "系统",
+    "alert_dispatched": "包裹 {{parcel}} 已通过无人机 {{drone}} 发货。",
+    "alert_inflight": "无人机 {{drone}} 正在飞行中。距离目的地：{{distance}}。",
+    "alert_arrived": "无人机 {{drone}} 已携带包裹 {{parcel}} 到达。",
+    "alert_delivered": "包裹 {{parcel}} 配送成功。",
+    "alert_failed": "包裹 {{parcel}} 配送失败：{{reason}}。"
   },
   "weather": {
     "title": "天气监控",
@@ -594,5 +603,40 @@
     "executed": "已执行",
     "failed": "失败",
     "conf": "置信度"
+  },
+  "activeOrders": {
+    "title": "进行中订单",
+    "subtitle": "监控您当前已发货和飞行中的配送",
+    "noOrders": "暂无进行中订单",
+    "noOrdersHint": "您当前没有正在进行的配送任务。",
+    "statusDispatched": "已发货",
+    "statusInFlight": "飞行中",
+    "statusLanding": "降落中",
+    "statusArrived": "已到达",
+    "eta": "预计",
+    "mins": "分钟",
+    "arrived": "已到达",
+    "cancel": "取消订单",
+    "cancelTitle": "取消配送？",
+    "cancelConfirm": "您确定要取消订单 {{id}} 吗？无人机将返回基地。",
+    "keepOrder": "保留订单",
+    "confirmCancel": "确认取消"
+  },
+  "parcelProof": {
+    "title": "送达凭证",
+    "subtitle": "查看配送照片、GPS记录并下载收据",
+    "all": "全部",
+    "delivered": "已送达",
+    "failed": "失败",
+    "proofTitle": "送达凭证 - {{id}}",
+    "parcelId": "包裹编号",
+    "recipient": "收件人",
+    "address": "地址",
+    "drone": "无人机",
+    "weight": "重量",
+    "deliveredAt": "时间",
+    "gps": "GPS坐标",
+    "note": "备注",
+    "downloadReceipt": "下载电子收据 (PDF)"
   }
 }

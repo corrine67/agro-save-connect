@@ -25,7 +25,9 @@
     "security": "Security & Blockchain",
     "optimization": "Swarm Optimization",
     "interactive": "Interactive Features",
-    "logout": "Logout"
+    "logout": "Logout",
+    "activeOrders": "Active Orders",
+    "parcelProof": "Parcel Proof"
   },
   "pageTitles": {
     "home": "HiveDeliver Platform",
@@ -274,7 +276,14 @@
     "time1": "2 minutes ago",
     "time2": "5 minutes ago",
     "time3": "1 hour ago",
-    "time4": "3 hours ago"
+    "time4": "3 hours ago",
+    "tabDelivery": "Delivery Alerts",
+    "tabSystem": "System",
+    "alert_dispatched": "Parcel {{parcel}} has been dispatched via Drone {{drone}}.",
+    "alert_inflight": "Drone {{drone}} is in flight. Distance to destination: {{distance}}.",
+    "alert_arrived": "Drone {{drone}} has arrived with Parcel {{parcel}}.",
+    "alert_delivered": "Parcel {{parcel}} delivered successfully.",
+    "alert_failed": "Delivery failed for Parcel {{parcel}}: {{reason}}."
   },
   "weather": {
     "title": "Weather Monitoring",
@@ -579,5 +588,40 @@
     "executed": "Executed",
     "failed": "Failed",
     "conf": "conf."
+  },
+  "activeOrders": {
+    "title": "Active Orders",
+    "subtitle": "Monitor your currently dispatched and in-flight deliveries",
+    "noOrders": "No Active Orders",
+    "noOrdersHint": "You have no deliveries currently in progress.",
+    "statusDispatched": "Dispatched",
+    "statusInFlight": "In Flight",
+    "statusLanding": "Landing",
+    "statusArrived": "Arrived",
+    "eta": "ETA",
+    "mins": "mins",
+    "arrived": "Arrived",
+    "cancel": "Cancel Order",
+    "cancelTitle": "Cancel Delivery?",
+    "cancelConfirm": "Are you sure you want to cancel order {{id}}? The drone will return to base.",
+    "keepOrder": "Keep Order",
+    "confirmCancel": "Yes, Cancel"
+  },
+  "parcelProof": {
+    "title": "Parcel Proof",
+    "subtitle": "View delivery photos, GPS records, and download receipts",
+    "all": "All",
+    "delivered": "Delivered",
+    "failed": "Failed",
+    "proofTitle": "Proof of Delivery - {{id}}",
+    "parcelId": "Parcel ID",
+    "recipient": "Recipient",
+    "address": "Address",
+    "drone": "Drone",
+    "weight": "Weight",
+    "deliveredAt": "Time",
+    "gps": "GPS",
+    "note": "Note",
+    "downloadReceipt": "Download E-Receipt (PDF)"
   }
 }

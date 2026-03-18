@@ -11,8 +11,8 @@ import {
   Divider,
   Button,
 } from '@mui/material'
-import { HiCubeTransparent, HiMap, HiChartBarSquare, HiCpuChip } from 'react-icons/hi2'
-import { FaHouse, FaClipboardList, FaLocationDot, FaLock, FaRoute, FaMicrophone } from 'react-icons/fa6'
+import { HiCubeTransparent, HiMap, HiChartBarSquare, HiCpuChip, HiChatBubbleLeftRight } from 'react-icons/hi2'
+import { FaHouse, FaClipboardList, FaLocationDot, FaLock, FaRoute, FaMicrophone, FaCamera, FaBoxOpen } from 'react-icons/fa6'
 import { GiDeliveryDrone } from 'react-icons/gi'
 import { MdHistory, MdLogout, MdNotificationsNone } from 'react-icons/md'
 import { useAuth } from '../contexts/AuthContext.jsx'
@@ -24,6 +24,9 @@ const allNavItems = [
   { key: 'order', label: 'Create Delivery Order', path: '/order', icon: <FaClipboardList />, roles: ['admin', 'manager', 'user'] },
   { key: 'map', label: 'Live Drone Map', path: '/map', icon: <HiMap />, roles: ['admin', 'manager', 'user'] },
   { key: 'history', label: 'Delivery History', path: '/history', icon: <MdHistory />, roles: ['user'] },
+  { key: 'activeOrders', label: 'Active Orders', path: '/active-orders', icon: <FaBoxOpen />, roles: ['user'] },
+  { key: 'parcelProof', label: 'Parcel Proof', path: '/parcel-proof', icon: <FaCamera />, roles: ['user'] },
+  { key: 'managerHistory', label: 'Delivery History', path: '/manager-history', icon: <MdHistory />, roles: ['admin', 'manager'] },
   { key: 'addresses', label: 'Saved Addresses', path: '/addresses', icon: <FaLocationDot />, roles: ['user'] },
 
   { key: 'intelligence', label: 'Swarm Intelligence', path: '/intelligence', icon: <HiCpuChip />, roles: ['admin'] },
@@ -32,6 +35,7 @@ const allNavItems = [
   { key: 'security', label: 'Security & Blockchain', path: '/security', icon: <FaLock />, roles: ['admin', 'manager'] },
   { key: 'optimization', label: 'Swarm Optimization', path: '/optimization', icon: <FaRoute />, roles: ['manager'] },
   { key: 'interactive', label: 'Interactive Features', path: '/interactive', icon: <FaMicrophone />, roles: ['manager'] },
+  { key: 'support', label: 'AI Chat Support', path: '/support', icon: <HiChatBubbleLeftRight />, roles: ['admin', 'manager', 'user'] },
 ]
 
 function Sidebar({ onNavigate }) {
@@ -106,7 +110,7 @@ function Sidebar({ onNavigate }) {
               {item.icon}
             </ListItemIcon>
             <ListItemText
-              primary={t(`nav.${item.key}`)}
+              primary={item.key === 'managerHistory' ? t('nav.history') : t(`nav.${item.key}`)}
               primaryTypographyProps={{
                 fontWeight: 600,
                 fontSize: '0.84rem',
@@ -125,7 +129,7 @@ function Sidebar({ onNavigate }) {
         onClick={handleLogout}
         sx={{ fontWeight: 600 }}
       >
-        Logout
+        {t('nav.logout')}
       </Button>
     </Box>
   )

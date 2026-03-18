@@ -12,11 +12,15 @@ import IntelligencePage from './pages/IntelligencePage.jsx'
 import AnalyticsPage from './pages/AnalyticsPage.jsx'
 import FleetPage from './pages/FleetPage.jsx'
 import DeliveryHistory from './pages/DeliveryHistory.jsx'
+import ActiveOrdersPage from './pages/ActiveOrdersPage.jsx'
+import ParcelProofPage from './pages/ParcelProofPage.jsx'
+import ManagerDeliveryHistory from './pages/ManagerDeliveryHistory.jsx'
 import SavedAddresses from './pages/SavedAddresses.jsx'
 import NotificationsPage from './pages/NotificationsPage.jsx'
 import SecurityDashboard from './pages/SecurityDashboard.jsx'
 import SwarmOptimizationPage from './pages/SwarmOptimizationPage.jsx'
 import InteractiveFeaturesPage from './pages/InteractiveFeaturesPage.jsx'
+import SupportChatbotPage from './pages/SupportChatbotPage.jsx'
 import LoginPage from './pages/LoginPage.jsx'
 import RegisterPage from './pages/RegisterPage.jsx'
 import RequireAuth from './components/RequireAuth.jsx'
@@ -57,7 +61,10 @@ function App() {
             <Route path="/map" element={<LiveMapPage />} />
             <Route path="/order" element={<CreateOrderPage />} />
             <Route path="/history" element={<DeliveryHistory />} />
+            <Route path="/manager-history" element={<ManagerDeliveryHistory />} />
             <Route path="/addresses" element={<SavedAddresses />} />
+            <Route path="/active-orders" element={<ActiveOrdersPage />} />
+            <Route path="/parcel-proof" element={<ParcelProofPage />} />
             <Route path="/notifications" element={<NotificationsPage />} />
             <Route path="/intelligence" element={<IntelligencePage />} />
             <Route path="/analytics" element={<AnalyticsPage />} />
@@ -65,6 +72,7 @@ function App() {
             <Route path="/security" element={<SecurityDashboard />} />
             <Route path="/optimization" element={<SwarmOptimizationPage />} />
             <Route path="/interactive" element={<InteractiveFeaturesPage />} />
+            <Route path="/support" element={<SupportChatbotPage />} />
           </Route>
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
