@@ -1,19 +1,33 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Box, Button, Card, CardContent, Grid, Stack, Typography, Chip } from '@mui/material'
+import { Box, Button, Card, CardContent, Grid, IconButton, ListItemText, Menu, MenuItem, Stack, Tooltip, Typography, Chip } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import { useTranslation } from 'react-i18next'
 import { FaBoxOpen, FaWarehouse, FaArrowRight, FaShieldHalved, FaBolt, FaRoute } from 'react-icons/fa6'
 import { GiDeliveryDrone } from 'react-icons/gi'
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined'
+import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined'
+import TranslateIcon from '@mui/icons-material/Translate'
 import { useAuth } from '../contexts/AuthContext.jsx'
+import { useColorMode } from '../ColorModeContext.jsx'
+import { languages } from '../i18n/i18n.js'
 
 function LandingPage() {
   const navigate = useNavigate()
   const { isAuthenticated } = useAuth()
   const theme = useTheme()
-  const { t } = useTranslation()
-  const isDarkMode = theme.palette.mode === 'dark'
+  const { t, i18n } = useTranslation()
+  const { mode, toggleColorMode } = useColorMode()
+  const isDarkMode = mode === 'dark'
   const brandLogo = '/hivedeliver-logo.svg'
+
+  // Language menu
+  const [langAnchor, setLangAnchor] = useState(null)
+  const langMenuOpen = Boolean(langAnchor)
+  const handleLangClick = (e) => setLangAnchor(e.currentTarget)
+  const handleLangClose = () => setLangAnchor(null)
+  const handleLangSelect = (code) => { i18n.changeLanguage(code); handleLangClose() }
+  const currentLang = languages.find((l) => l.code === i18n.language) || languages[0]
 
   // Auto-redirect authenticated users to dashboard
   useEffect(() => {
@@ -119,6 +133,96 @@ function LandingPage() {
             <Button onClick={() => scrollToSection('landing-features')} sx={{ textTransform: 'none', fontWeight: 700 }}>
               {t('landing.features')}
             </Button>
+
+            {/* Language Switcher */}
+            <Tooltip title={t('common.language')}>
+              <IconButton
+                onClick={handleLangClick}
+                color="inherit"
+                sx={{
+                  border: '1px solid',
+                  borderColor: langMenuOpen ? 'primary.main' : 'divider',
+                  borderRadius: 2,
+                  height: 36,
+                  minWidth: 36,
+                  px: 1,
+                  gap: 0.5,
+                  transition: 'all 0.3s ease',
+                  bgcolor: langMenuOpen ? 'rgba(20,184,166,0.08)' : 'transparent',
+                  '&:hover': { bgcolor: 'rgba(20,184,166,0.08)' },
+                }}
+              >
+                <TranslateIcon fontSize="small" />
+                <Typography variant="caption" sx={{ fontWeight: 700, fontSize: '0.7rem', textTransform: 'uppercase', display: { xs: 'none', sm: 'block' } }}>
+                  {currentLang.code}
+                </Typography>
+              </IconButton>
+            </Tooltip>
+            <Menu
+              anchorEl={langAnchor}
+              open={langMenuOpen}
+              onClose={handleLangClose}
+              anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+              transformOrigin={{ vertical: 'top', horizontal: 'right' }}
+              slotProps={{
+                paper: {
+                  sx: {
+                    mt: 1,
+                    minWidth: 180,
+                    borderRadius: 2.5,
+                    bgcolor: isDarkMode ? 'rgba(10,22,32,0.95)' : 'rgba(255,255,255,0.98)',
+                    backdropFilter: 'blur(20px)',
+                    border: `1px solid ${isDarkMode ? 'rgba(20,184,166,0.12)' : 'rgba(15,118,110,0.08)'}`,
+                    boxShadow: isDarkMode ? '0 8px 32px rgba(0,0,0,0.5)' : '0 8px 32px rgba(0,0,0,0.1)',
+                  },
+                },
+              }}
+            >
+              {languages.map((lang) => (
+                <MenuItem
+                  key={lang.code}
+                  selected={i18n.language === lang.code}
+                  onClick={() => handleLangSelect(lang.code)}
+                  sx={{
+                    py: 1.2, px: 2, borderRadius: 1.5, mx: 0.5, mb: 0.3,
+                    transition: 'all 0.2s ease',
+                    ...(i18n.language === lang.code && {
+                      bgcolor: isDarkMode ? 'rgba(20,184,166,0.12)' : 'rgba(20,184,166,0.08)',
+                      borderLeft: '3px solid', borderColor: 'primary.main',
+                    }),
+                    '&:hover': { bgcolor: isDarkMode ? 'rgba(20,184,166,0.08)' : 'rgba(20,184,166,0.05)' },
+                  }}
+                >
+                  <Typography sx={{ fontSize: '1.2rem', mr: 1.5, lineHeight: 1 }}>{lang.flag}</Typography>
+                  <ListItemText
+                    primary={lang.label}
+                    primaryTypographyProps={{ fontWeight: i18n.language === lang.code ? 700 : 500, fontSize: '0.88rem' }}
+                  />
+                  {i18n.language === lang.code && (
+                    <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'primary.main', ml: 1 }} />
+                  )}
+                </MenuItem>
+              ))}
+            </Menu>
+
+            {/* Dark / Light Mode Toggle */}
+            <Tooltip title={isDarkMode ? t('common.switchToLight') : t('common.switchToDark')}>
+              <IconButton
+                onClick={toggleColorMode}
+                color="inherit"
+                sx={{
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderRadius: 2,
+                  width: 36,
+                  height: 36,
+                  transition: 'all 0.3s ease',
+                  '&:hover': { bgcolor: 'rgba(20,184,166,0.08)' },
+                }}
+              >
+                {isDarkMode ? <LightModeOutlinedIcon fontSize="small" /> : <DarkModeOutlinedIcon fontSize="small" />}
+              </IconButton>
+            </Tooltip>
             {isAuthenticated ? (
               <Button
                 variant="contained"
