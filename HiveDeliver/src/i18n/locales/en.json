@@ -24,7 +24,8 @@
     "fleet": "Fleet Management",
     "security": "Security & Blockchain",
     "optimization": "Swarm Optimization",
-    "interactive": "Interactive Features"
+    "interactive": "Interactive Features",
+    "logout": "Logout"
   },
   "pageTitles": {
     "home": "HiveDeliver Platform",
@@ -253,6 +254,9 @@
     "cancelled": "Cancelled",
     "failed": "Failed",
     "noResults": "No deliveries match the current filters.",
+    "recipient": "Recipient",
+    "weight": "Weight",
+    "note": "Note",
     "feedbackTitle": "Your Feedback Matters",
     "feedbackSubtitle": "Scan the QR code to tell us about your experience!",
     "scanPrompt": "Scan to provide feedback"
@@ -400,7 +404,24 @@
     "noAccount": "Don't have an account?",
     "createOne": "Create one here",
     "registrationSuccess": "Account created successfully. Please sign in with your new credentials.",
-    "errorSignIn": "Unable to sign in. Please check your credentials."
+    "errorSignIn": "Unable to sign in. Please check your credentials.",
+    "lockedError": "Account locked. Please wait {{time}}.",
+    "captchaRequired": "Please complete the security verification first.",
+    "tooManyAttempts": "Too many failed attempts. Account locked for 5 minutes.",
+    "attemptsRemaining": "{{message}} ({{count}} attempts remaining)",
+    "lockedTitle": "Account Temporarily Locked",
+    "lockedMessage": "Too many failed login attempts. Try again in",
+    "attemptsWarning": "{{count}} login attempts remaining before lockout.",
+    "captchaVerified": "✅ Verified — I am not a robot",
+    "notRobot": "I am not a robot",
+    "captchaChallenge": "🧮 Security Challenge: {{question}}",
+    "captchaPlaceholder": "Your answer",
+    "captchaWrong": "Wrong answer. Try again.",
+    "captchaVerifyBtn": "Verify",
+    "lockedBtn": "🔒 Locked ({{time}})",
+    "securityTitle": "🔐 Security Features Active",
+    "securityPoint1": "• Account locks after {{count}} failed attempts (5 min)",
+    "securityPoint2": "• CAPTCHA verification required on every login"
   },
   "register": {
     "title": "Create your HiveDeliver account",

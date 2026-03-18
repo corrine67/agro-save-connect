@@ -22,6 +22,9 @@
     "intelligence": "Kecerdasan Kawanan",
     "analytics": "Analitik",
     "fleet": "Pengurusan Armada",
+    "security": "Keselamatan & Blockchain",
+    "optimization": "Pengoptimuman Kawanan",
+    "interactive": "Ciri Interaktif",
     "logout": "Daftar Keluar"
   },
   "pageTitles": {
@@ -248,6 +251,9 @@
     "cancelled": "Dibatalkan",
     "failed": "Gagal",
     "noResults": "Tiada penghantaran sepadan dengan penapis semasa.",
+    "recipient": "Penerima",
+    "weight": "Berat",
+    "note": "Nota",
     "feedbackTitle": "Maklum Balas Anda Penting",
     "feedbackSubtitle": "Imbas kod QR untuk memberitahu kami tentang pengalaman anda!",
     "scanPrompt": "Imbas untuk memberikan maklum balas"
@@ -413,7 +419,24 @@
     "noAccount": "Tiada akaun?",
     "createOne": "Cipta satu di sini",
     "registrationSuccess": "Akaun berjaya dicipta. Sila log masuk dengan kelayakan baharu anda.",
-    "errorSignIn": "Tidak dapat log masuk. Sila semak kelayakan anda."
+    "errorSignIn": "Tidak dapat log masuk. Sila semak kelayakan anda.",
+    "lockedError": "Akaun dikunci. Sila tunggu {{time}}.",
+    "captchaRequired": "Sila lengkapkan pengesahan keselamatan terlebih dahulu.",
+    "tooManyAttempts": "Terlalu banyak percubaan gagal. Akaun dikunci selama 5 minit.",
+    "attemptsRemaining": "{{message}} (Tinggal {{count}} percubaan)",
+    "lockedTitle": "Akaun Dikunci Sementara",
+    "lockedMessage": "Terlalu banyak percubaan log masuk gagal. Cuba lagi dalam",
+    "attemptsWarning": "Tinggal {{count}} percubaan log masuk sebelum dikunci.",
+    "captchaVerified": "✅ Disahkan — Saya bukan robot",
+    "notRobot": "Saya bukan robot",
+    "captchaChallenge": "🧮 Cabaran Keselamatan: {{question}}",
+    "captchaPlaceholder": "Jawapan anda",
+    "captchaWrong": "Jawapan salah. Cuba lagi.",
+    "captchaVerifyBtn": "Sahkan",
+    "lockedBtn": "🔒 Dikunci ({{time}})",
+    "securityTitle": "🔐 Ciri Keselamatan Aktif",
+    "securityPoint1": "• Akaun dikunci selepas {{count}} percubaan gagal (5 min)",
+    "securityPoint2": "• Pengesahan CAPTCHA diperlukan setiap kali log masuk"
   },
   "register": {
     "title": "Cipta akaun HiveDeliver anda",

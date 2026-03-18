@@ -352,54 +352,6 @@ function LandingPage() {
         </Box>
       </Box>
 
-      {/* Development Login Section */}
-      <Box sx={{ py: 4, px: { xs: 2, md: 4 }, textAlign: 'center', backgroundColor: 'rgba(20, 184, 166, 0.02)' }}>
-        <Typography variant="h5" sx={{ mb: 2, fontWeight: 700, color: '#0f766e' }}>
-          🚀 Quick Access for Development
-        </Typography>
-        <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" sx={{ mb: 2 }}>
-          <Button
-            variant="contained"
-            onClick={() => navigate('/login')}
-            sx={{
-              px: 3,
-              py: 1.5,
-              textTransform: 'none',
-              fontWeight: 600,
-              borderRadius: '8px',
-              background: 'linear-gradient(135deg, #0f766e, #14b8a6)',
-              '&:hover': {
-                background: 'linear-gradient(135deg, #0d9488, #0f766e)',
-              },
-            }}
-          >
-            Login to Dashboard
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => navigate('/dashboard')}
-            sx={{
-              px: 3,
-              py: 1.5,
-              textTransform: 'none',
-              fontWeight: 600,
-              borderRadius: '8px',
-              borderColor: '#0f766e',
-              color: '#0f766e',
-              '&:hover': {
-                borderColor: '#14b8a6',
-                color: '#14b8a6',
-                backgroundColor: 'rgba(20, 184, 166, 0.05)',
-              },
-            }}
-          >
-            View Dashboard (Demo)
-          </Button>
-        </Stack>
-        <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block' }}>
-          Use: manager@hivedeliver.com / manager123 or user@hivedeliver.com / user123
-        </Typography>
-      </Box>
 
       {/* Benefits Section */}
       <Box id="landing-features" sx={{ py: { xs: 4, md: 6 }, px: { xs: 2, md: 4 } }}>
