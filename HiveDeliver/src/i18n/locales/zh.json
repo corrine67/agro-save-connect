@@ -565,6 +565,18 @@
     "voiceCommandDetected": "检测到语音指令",
     "voiceCommandPrompt": "系统检测到以下指令。点击执行以继续。",
     "cancel": "取消",
-    "executeCommand": "执行指令"
+    "executeCommand": "执行指令",
+    "browserNotSupported": "您的浏览器不支持 Web Speech API。请使用 Chrome 或 Edge 以支持语音指令。",
+    "micDenied": "麦克风访问被拒绝。请在浏览器设置中允许麦克风权限，然后重试。",
+    "stopListening": "停止监听",
+    "startListening": "🎤 开始监听",
+    "ready": "就绪",
+    "commandNotRecognized": "无法识别指令",
+    "heard": "听到",
+    "tryHint": "尝试说：“将无人机 H1 分配给包裹 P102”或“H3 的电池状态”",
+    "commandHistory": "指令历史",
+    "executed": "已执行",
+    "failed": "失败",
+    "conf": "置信度"
   }
 }

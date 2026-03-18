@@ -565,6 +565,18 @@
     "voiceCommandDetected": "Arahan Suara Dikesan",
     "voiceCommandPrompt": "Sistem mengesan arahan berikut. Klik Laksana untuk meneruskan.",
     "cancel": "Batal",
-    "executeCommand": "Laksana Arahan"
+    "executeCommand": "Laksana Arahan",
+    "browserNotSupported": "Pelayar anda tidak menyokong Web Speech API. Sila gunakan Chrome atau Edge untuk arahan suara.",
+    "micDenied": "Akses mikrofon ditolak. Sila benarkan kebenaran mikrofon dalam tetapan pelayar anda dan cuba lagi.",
+    "stopListening": "Berhenti Mendengar",
+    "startListening": "🎤 Mula Mendengar",
+    "ready": "Sedia",
+    "commandNotRecognized": "Arahan tidak dikenali",
+    "heard": "Didengar",
+    "tryHint": "Cuba: \"Tugaskan Dron H1 ke Bungkusan P102\" atau \"Status bateri untuk H3\"",
+    "commandHistory": "Sejarah Arahan",
+    "executed": "Dilaksana",
+    "failed": "Gagal",
+    "conf": "yakin."
   }
 }

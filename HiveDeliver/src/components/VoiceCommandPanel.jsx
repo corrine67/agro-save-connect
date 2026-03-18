@@ -4,6 +4,7 @@
  * Parses spoken commands and returns structured execution results.
  */
 import { useEffect, useRef, useState, useCallback } from 'react'
+import { useTranslation } from 'react-i18next'
 import {
   Box,
   Button,
@@ -189,6 +190,7 @@ function WaveformBars({ active, analyserRef }) {
 
 // ─── Main component ───────────────────────────────────────────────────────────
 function VoiceCommandPanel() {
+  const { t } = useTranslation()
   const [isListening, setIsListening] = useState(false)
   const [transcript, setTranscript] = useState('')
   const [interimText, setInterimText] = useState('')
@@ -321,9 +323,9 @@ function VoiceCommandPanel() {
           <FaMicrophone style={{ color: '#a855f7', fontSize: '1.1rem' }} />
         </Box>
         <Stack>
-          <Typography variant="h6" fontWeight={700}>Voice Commands for Dispatch</Typography>
+          <Typography variant="h6" fontWeight={700}>{t('interactive.voiceCommandsTitle')}</Typography>
           <Typography variant="caption" color="text.secondary">
-            Control the drone fleet hands-free using natural language
+            {t('interactive.voiceCommandsDesc')}
           </Typography>
         </Stack>
       </Stack>
@@ -331,14 +333,14 @@ function VoiceCommandPanel() {
       {/* ── Browser not supported ── */}
       {!supported && (
         <Alert severity="warning" sx={{ borderRadius: 2 }}>
-          Your browser does not support the Web Speech API. Please use Chrome or Edge for voice commands.
+          {t('interactive.browserNotSupported')}
         </Alert>
       )}
 
       {/* ── Permission denied ── */}
       {permissionDenied && (
         <Alert severity="error" sx={{ borderRadius: 2 }}>
-          Microphone access was denied. Please allow microphone permission in your browser settings and try again.
+          {t('interactive.micDenied')}
         </Alert>
       )}
 
@@ -374,7 +376,7 @@ function VoiceCommandPanel() {
                   minWidth: 160,
                 }}
               >
-                {isListening ? 'Stop Listening' : '🎤 Start Listening'}
+                {isListening ? t('interactive.stopListening') : t('interactive.startListening')}
               </Button>
 
               {/* Waveform */}
@@ -384,7 +386,7 @@ function VoiceCommandPanel() {
 
               {/* Status label */}
               <Chip
-                label={isListening ? 'Listening…' : 'Ready'}
+                label={isListening ? t('interactive.listening') : t('interactive.ready')}
                 size="small"
                 sx={{
                   bgcolor: isListening ? 'rgba(239,68,68,0.12)' : 'rgba(34,197,94,0.1)',
@@ -431,20 +433,20 @@ function VoiceCommandPanel() {
                   </Stack>
                   <Typography variant="caption" color="text.secondary">{lastResult.result.detail}</Typography>
                   <Typography variant="caption" color="text.disabled" fontFamily='"Courier New", monospace'>
-                    Heard: "{lastResult.raw}"
+                    {t('interactive.heard')}: "{lastResult.raw}"
                   </Typography>
                 </Stack>
               ) : (
                 <Stack spacing={0.5}>
                   <Stack direction="row" alignItems="center" spacing={1}>
                     <FaCircleXmark style={{ color: '#ef4444', fontSize: '1rem' }} />
-                    <Typography variant="subtitle2" fontWeight={700} color="#ef4444">Command not recognised</Typography>
+                    <Typography variant="subtitle2" fontWeight={700} color="#ef4444">{t('interactive.commandNotRecognized')}</Typography>
                   </Stack>
                   <Typography variant="caption" color="text.secondary">
-                    Heard: "<em>{lastResult.raw}</em>"
+                    {t('interactive.heard')}: "<em>{lastResult.raw}</em>"
                   </Typography>
                   <Typography variant="caption" color="text.disabled">
-                    Try: "Assign Drone H1 to Parcel P102" or "Battery status for H3"
+                    {t('interactive.tryHint')}
                   </Typography>
                 </Stack>
               )}
@@ -459,16 +461,16 @@ function VoiceCommandPanel() {
           <Stack direction="row" alignItems="center" spacing={0.8} mb={1}>
             <FaBolt style={{ color: '#a855f7', fontSize: '0.8rem' }} />
             <Typography variant="caption" fontWeight={700} color="#a855f7" sx={{ textTransform: 'uppercase', letterSpacing: 0.8 }}>
-              Supported Commands
+              {t('interactive.supportedCommandsLabel')}
             </Typography>
           </Stack>
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 0.6 }}>
             {[
-              '"Assign Drone H1 to Parcel P102"',
-              '"Battery status for H3"',
-              '"Show map for Drone H6"',
-              '"Initiate handoff between H1 and H8"',
-              '"Optimize route for Drone H1"',
+              t('interactive.cmd1').replace('[ID]', 'H1').replace('[ID]', 'P102'),
+              t('interactive.cmd2').replace('[Drone ID]', 'H3'),
+              t('interactive.cmd4').replace('[Drone ID]', 'H6'),
+              t('interactive.cmd3').replace('[Drone1]', 'H1').replace('[Drone2]', 'H8'),
+              t('interactive.cmd5').replace('[Drone ID]', 'H1'),
               '"Send H3 to base"',
               '"Status for all drones"',
               '"Get battery status for all drones"',
@@ -476,7 +478,7 @@ function VoiceCommandPanel() {
               <Stack key={i} direction="row" spacing={0.8} alignItems="flex-start">
                 <Box sx={{ width: 4, height: 4, borderRadius: '50%', bgcolor: '#a855f7', mt: 0.8, flexShrink: 0 }} />
                 <Typography variant="caption" color="text.secondary" sx={{ fontFamily: '"Courier New", monospace', fontSize: '0.7rem' }}>
-                  {cmd}
+                  "{cmd.replace(/"/g, '')}"
                 </Typography>
               </Stack>
             ))}
@@ -488,7 +490,7 @@ function VoiceCommandPanel() {
       <Stack spacing={0.8}>
         <Typography variant="subtitle2" fontWeight={700} color="text.secondary"
           sx={{ textTransform: 'uppercase', letterSpacing: 1, fontSize: '0.7rem' }}>
-          Command History
+          {t('interactive.commandHistory')}
         </Typography>
         {history.map((cmd, idx) => (
           <Card key={idx} variant="outlined" sx={{
@@ -513,7 +515,7 @@ function VoiceCommandPanel() {
                 </Stack>
                 <Stack alignItems="flex-end" spacing={0.4} flexShrink={0}>
                   <Chip
-                    label={cmd.matched ? 'Executed' : 'Failed'}
+                    label={cmd.matched ? t('interactive.executed') : t('interactive.failed')}
                     size="small"
                     icon={cmd.matched
                       ? <FaCircleCheck style={{ color: '#22c55e', fontSize: '0.65rem' }} />
@@ -526,7 +528,7 @@ function VoiceCommandPanel() {
                   />
                   {cmd.matched && (
                     <Typography variant="caption" color="text.disabled" fontSize="0.62rem">
-                      {cmd.confidence}% conf.
+                      {cmd.confidence}% {t('interactive.conf')}
                     </Typography>
                   )}
                 </Stack>

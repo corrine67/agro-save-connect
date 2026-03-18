@@ -550,6 +550,18 @@
     "voiceCommandDetected": "Voice Command Detected",
     "voiceCommandPrompt": "The system detected the following command. Click Execute to proceed.",
     "cancel": "Cancel",
-    "executeCommand": "Execute Command"
+    "executeCommand": "Execute Command",
+    "browserNotSupported": "Your browser does not support the Web Speech API. Please use Chrome or Edge for voice commands.",
+    "micDenied": "Microphone access was denied. Please allow microphone permission in your browser settings and try again.",
+    "stopListening": "Stop Listening",
+    "startListening": "🎤 Start Listening",
+    "ready": "Ready",
+    "commandNotRecognized": "Command not recognised",
+    "heard": "Heard",
+    "tryHint": "Try: \"Assign Drone H1 to Parcel P102\" or \"Battery status for H3\"",
+    "commandHistory": "Command History",
+    "executed": "Executed",
+    "failed": "Failed",
+    "conf": "conf."
   }
 }
